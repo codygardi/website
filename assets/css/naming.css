@@ -1,0 +1,23 @@
+#number {
+    font-size: 36px;
+    font-weight: 800;
+    color: #99A9CD;
+  }
+  
+#location {
+  font-size: 25px;
+  font-weight: 800;
+  color: #322B26;
+}
+
+#about {
+  font-size: 16px;
+  font-weight: 400;
+  color: #322B26;
+}
+
+#goal {
+  font-size: 20px;
+  font-weight: 400;
+  color: #322B26;
+}
