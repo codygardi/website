@@ -1,0 +1,50 @@
+PAGES:
+--------
+--------
+--------
+_______
+HOME
+
+- confirm design and wording
+- horizontal socials to bottom & top of home page
+_______
+ABOUT
+
+- add profile picture
+- develop mission and background in 2 paragraphs
+- add # of certifications/years of experience/ happy clients with numbers
+_______
+EXPERIENCE 
+
+My Experience - some of my core skills
+3 COLUMNS - Skills, Tech & Tools, Platforms
+
+- Skills
+--- Python (intermediate), SQL(basic),
+- Tech & Tools
+--- Nmap, Wireshark, Metasploit, Github
+- Platforms
+--- Windows 10 & 11, Windows Server 2012 & 2022, Kali Linux, Ubuntu, PFSense, Metaploit, Cisco Meraki
+
+
+Learning & Acheivements(2 columns):
+2 COLUMNS - Skills, Tech & Tools,
+- BS & MS Learning Path:
+--- list all classes in Bachelors/ Masters Programs
+--- 
+- Acheivements
+--- list all certifications
+_______
+WORK
+
+- Sandbox Home Lab Environment with Firewall integration
+- Automated Scheduling System with text message automation to switch shifts
+- Automated File Recovery System after SSD/HDD currupted
+- Reverse Engineering Decompiler For Malicious Code
+- AI Projects
+_______
+CONTACT
+
+- link contact information
+- include a captcha on submission
+- force information entry or don't let them submit
