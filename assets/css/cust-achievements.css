@@ -1,0 +1,61 @@
+.achievements-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem 1rem;
+    justify-items: center;
+  }
+  
+  .achieve-card {
+    background-color: rgba(176, 151, 161, 0.25);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .achieve-card:hover {
+    background-color: rgba(176, 151, 161, 0.4);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
+  }
+  
+  .achieve-header {
+    background-color: #a18e99;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .achieve-card ul {
+    list-style: none;
+    padding: 1.5rem;
+    margin: 0;
+  }
+  
+  .achieve-card ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: #f1e9ee;
+  }
+  
+  .achieve-card ul li i {
+    color: #e5b1c3;
+    margin-right: 0.6rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Responsive - show max 2 per row on iPhones/small devices */
+  @media (max-width: 768px) {
+    .achievements-section {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+  }
+  

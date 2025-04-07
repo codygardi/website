@@ -1,0 +1,111 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css");
+
+.about-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: flex-start;
+    color: #ddd;
+  }
+  
+  .about-img-container {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    perspective: 1000px;
+  }
+  
+  .about-img {
+    width: 100%;
+    border-radius: 20px;
+    transform: rotate(-5deg);
+    transition: transform 0.4s ease;
+  }
+  
+  .about-img:hover {
+    transform: rotate(0deg);
+  }
+  
+  .about-content {
+    flex: 2;
+    min-width: 280px;
+  }
+  
+  .about-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .about-card {
+    flex: 1;
+    min-width: 120px;
+    background: #6e5a64;
+    color: #f3f3f3;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 12px;
+    transition: background 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    height: 180px; /* consistent card height */
+  }
+  
+  .about-card:hover {
+    background: #5b4a53;
+  }
+  
+  .about-card i {
+    font-size: 1.6em;
+    margin-bottom: 0.25em;
+  }
+
+  .about-card h3 {
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.2;
+  }
+
+  .about-card p {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  
+  .about-text {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    font-size: 0.95em;
+  }
+  
+  .about-btn {
+    background: #d6b6c2;
+    color: #000;
+    padding: 0.75em 1.5em;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .about-btn:hover {
+    background: #bda1ac;
+  }
+  
+  /* Responsive: stack on mobile */
+  @media (max-width: 768px) {
+    .about-section {
+      text-align: center; /* optional, keep if needed */
+    }
+  
+    .about-btn {
+      display: inline-block;
+      margin-top: 1rem;
+    }  
+  }
+  

@@ -1,0 +1,20 @@
+  .social-group {
+    color: rgb(255, 255, 255);
+    display: inline;
+    width: 40px;
+    height: 1px;
+    margin-left: 1rem;
+    opacity: 1;
+  }  
+  .social-line {
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background-color: #c9b0b8;
+    margin-left: 0rem;
+    opacity: 0.8;
+    vertical-align: middle;
+  }
+  
+  
+  
