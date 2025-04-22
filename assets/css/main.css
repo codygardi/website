@@ -1477,7 +1477,7 @@ input, select, textarea {
 		border: 0;
 		background: #f4f4f4;
 		border-radius: 10px;
-		border-color: #000000;
+		border-color: #1a1c2052;
 		box-shadow: 0px 0px 2px 1px #1a1c2052;
 		padding: 0.75em;
 		width: 100%;
@@ -1789,9 +1789,9 @@ input, select, textarea {
 				text-shadow: 0px 1px 30px #00ffffbb;
 				}
 			
-				#nav a:hover span {
-					opacity: 1.0;
-				}
+			#nav a:hover span {
+				opacity: 1.0;
+			}
 
 			#nav a.active {
 			transform: scale(1.15);
@@ -1848,7 +1848,7 @@ input, select, textarea {
 		}
 		@media screen and (max-width: 736px) {
 			#nav {
-				padding-top: 3em;
+				padding-top: 4em;
 				padding-bottom: 3.5em; /* reduce from 2em */
 				line-height: 1; /* Make icon location higher/lower */
 			}
@@ -2198,8 +2198,8 @@ input, select, textarea {
 	}
 	@media screen and (max-width: 736px) {
 		#footer {
-			padding-top: 2.5em;
-			padding-bottom: 4em; /* reduce from 2em */
+			padding-top: 2em;
+			padding-bottom: 2em; /* reduce from 2em */
 			line-height: 1; /* Make icon location higher/lower */
 			text-align: center;
 			align-items: center;
