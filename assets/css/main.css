@@ -1809,8 +1809,8 @@ input, select, textarea {
 
 		@media screen and (max-width: 1680px) {
 			#nav {
-				padding-top: 2em;
-				padding-bottom: 2em; /* reduce from 2em */
+				/* padding-top: 0em; */
+				padding-bottom: 3.5em; /* reduce from 2em */
 			}
 
 			#nav a {
@@ -1819,14 +1819,15 @@ input, select, textarea {
 			}
 
 			#nav a span {
-				display: none;
+				/* display: none; */
+				font-size: large;
 			}
 
 		}
 		@media screen and (max-width: 1280px) {
 			#nav {
-			 	padding-top: .8em;
-			 	padding-bottom:3em; /* reduce from 2em */
+			 	/* padding-top: .8em; */
+			 	padding-bottom:3.5em; /* reduce from 2em */
 			  	line-height: 0em; /* Make icon location higher/lower */
 			}
 		  
@@ -1835,28 +1836,35 @@ input, select, textarea {
 			 	padding-top: 0.4m; /* tighter vertical alignment */
 			}
 			#nav a span {
-				display: none;
+				/* display: none; */
+				font-size: large;
 			}
 		}
 		@media screen and (max-width: 736px) {
 			#nav {
-				padding-top: 1em;
-				padding-bottom: 4em; /* reduce from 2em */
+				padding-top: 3em;
+				padding-bottom: 3.5em; /* reduce from 2em */
 				line-height: 1; /* Make icon location higher/lower */
 			}
 		
 			#nav a {
 				height: 44px; /* slightly smaller for better fit */
-				padding-top: 0.4m; /* tighter vertical alignment */
+				padding-top: 0em; /* tighter vertical alignment */
+				padding-right: 0em;
+				margin: 0 0.2rem;
+				font-size: 1.2rem;
 			}
 			#nav a span {
-				display: none;
+				/* display: none; */
+				/*  */
+				padding-bottom: -4em;
+				font-size: 1.2rem;
 			}
 		}
 		@media screen and (max-width: 360px) {
 			#nav {
 				padding-top: 1em;
-				padding-bottom: 3.7em; /* reduce from 2em */
+				padding-bottom: 3.7em;
 			}
 
 			#nav a {
@@ -1917,8 +1925,8 @@ input, select, textarea {
 		@media screen and (max-width: 980px) {
 
 			#wrapper {
-				padding: 1.5em 0;
-				max-width: calc(100% - 8em);
+				padding: 1.2em 0;
+				max-width: calc(100% - 2em);
 			}
 
 		}
@@ -2152,10 +2160,10 @@ input, select, textarea {
 	#footer {
 		color: #e0e0e0;
 		text-align: center;
+		align-items: center;
 		padding: 1.5em 0 0 0;
 		font-size: 0.75em;
 		font-weight:lighter;
-		text-shadow: -2px 1px 5px #e0e0e000;
 	}
 
 	#footer a {
@@ -2174,4 +2182,22 @@ input, select, textarea {
 	#footer a:hover {
 		/* color: #f2f2f2; */
 		text-shadow: -2px 1px 5px #00ffff;
+	}
+	@media screen and (max-width: 736px) {
+		#footer {
+			padding-top: 3.5em;
+			padding-bottom: 0em; /* reduce from 2em */
+			line-height: 1; /* Make icon location higher/lower */
+			text-align: center;
+			align-items: center;
+		}
+	
+		#footer a {
+			padding-top: 0em; /* tighter vertical alignment */
+			padding-right: 0em;
+			margin: 0 0rem;
+			font-size: 0.8rem;
+			text-align: center;
+			align-items: center;
+		}
 	}
