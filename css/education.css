@@ -1,0 +1,127 @@
+/*----------------------------------------------------
+  Section 1: Base Education Layout
+----------------------------------------------------*/
+	.education-section {
+		background-color: #fff;
+		padding: 60px 0;
+		border-bottom: 1px solid #e0e0e0; /* optional baseline */
+	}
+	
+	.education-section .section-title {
+		font-size: 28px;
+		text-transform: uppercase;
+		font-weight: bold;
+		letter-spacing: 2px;
+	}
+
+	.education-section .section-subtitle {
+		font-style: italic;
+		font-size: 16px;
+		color: #666;
+		margin-bottom: 30px;
+	}
+  
+  /*----------------------------------------------------
+	Section 2: Filter Menu Styling
+  ----------------------------------------------------*/
+
+	.educationFilter ul {
+		display: flex;
+		justify-content: center;
+		gap: 2rem; /* Adjust spacing between items */
+		padding: 0;
+		margin: 2rem 0;
+		list-style: none;
+		padding-bottom: 2em;
+		border-bottom: 1px solid #e0e0e0; /* optional baseline */
+	}
+	
+	.educationFilter ul li {
+		position: relative;
+	}
+	
+	.educationFilter ul li:not(:last-child)::after {
+		content: '|';
+		position: absolute;
+		right: -1rem;
+		color: #999;
+		font-weight: 300;
+	}
+	
+	.educationFilter ul li a {
+		font-size: 0.75rem;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		text-decoration: none;
+		color: #6f6470;
+		font-weight: 600;
+		padding: 0.5rem 0;
+		transition: color 0.2s ease;
+	}
+	
+	.educationFilter ul li a:hover,
+	.educationFilter ul li a.current {
+		color: #000;
+	}
+	
+  
+  /*----------------------------------------------------
+	Section 3: Portfolio Grid
+  ----------------------------------------------------*/
+  ul.educationContainer {
+	display: block;
+	padding: 0;
+	margin-bottom: 0;
+	list-style-type: none;
+  }
+  
+  ul.educationContainer li {
+	display: block;
+	width: 24.8%;
+	margin: 0;
+	padding: 0;
+	border: 1px solid #fff;
+	height: auto;
+	cursor: pointer;
+  }
+  
+  ul.educationContainer li .lightCon {
+	display: block;
+	position: relative;
+	margin: 0;
+	overflow: hidden;
+  }
+  
+  ul.educationContainer li img {
+	width: 100% !important;
+	height: auto;
+	display: block;
+	border: solid 1px #e0e0e0
+  }
+  
+  /*----------------------------------------------------
+	Section 4: Isotope Transitions
+  ----------------------------------------------------*/
+  .isotope-item {
+	z-index: 2;
+  }
+  
+  .isotope-hidden.isotope-item {
+	pointer-events: none;
+	z-index: 1;
+  }
+  
+  .isotope,
+  .isotope .isotope-item {
+	transition-duration: 0.8s;
+  }
+  
+  .isotope {
+	transition-property: height, width;
+  }
+  
+  .isotope .isotope-item {
+	padding: 0;
+	transition-property: transform, opacity;
+  }
+ 

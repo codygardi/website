@@ -1,0 +1,79 @@
+/* --------------------------------------------- */
+/* About Me Section */
+/* --------------------------------------------- */
+
+.about-section {
+    background-color: #fff;
+    padding: 60px 0;
+}
+
+/* Section Headings */
+.about-section .section-title {
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.about-section .section-subtitle {
+    font-style: italic;
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+
+/* --------------------------------------------- */
+/* About Layout */
+/* --------------------------------------------- */
+
+.aboutme-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    align-items: center;
+}
+
+.aboutme-col {
+    flex: 1 1 400px;
+    min-width: 5%;
+}
+
+
+/* --------------------------------------------- */
+/* About Image */
+/* --------------------------------------------- */
+
+.about-img {
+    width: 50%;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid #cbcbcb;
+    padding: 8px;
+    border-radius: none;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+
+/* --------------------------------------------- */
+/* Button */
+/* --------------------------------------------- */
+
+.about-btn {
+    margin-top: 20px;
+    padding: 10px 24px;
+    border: 1px solid #000;
+    background: none;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.about-btn:hover {
+    background-color: #000;
+    color: #fff;
+}

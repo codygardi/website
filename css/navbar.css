@@ -1,0 +1,116 @@
+/* --------------------------------------------- */
+/* Navbar */
+/* --------------------------------------------- */
+
+.navbar {
+    background-color: transparent;
+    transition: background-color 0.3s;
+    padding: 50px 5%;
+    z-index: 100;
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+.navbar.scrolled {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+
+.navbar.scrolled .navbar-brand,
+.navbar.scrolled .nav-link {
+    color: #000;
+}
+
+
+/* --------------------------------------------- */
+/* Navbar: Toggle Icon Adjustments */
+/* --------------------------------------------- */
+
+.menu-toggle {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 8px 10px;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.menu-toggle i {
+    color: #fff;
+    font-size: 22px;
+    transition: color 0.3s;
+}
+
+.navbar.scrolled .menu-toggle {
+    border-color: rgba(0, 0, 0, 0.4);
+}
+
+.navbar.scrolled .menu-toggle i {
+    color: #000;
+}
+
+
+/* --------------------------------------------- */
+/* Navbar: Dropdown Mobile Menu */
+/* --------------------------------------------- */
+
+.nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff00;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 99;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+    border-top: 1px solid #ddd;
+}
+
+.nav-dropdown.open {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 20px 30px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.nav-link {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #000;
+    padding: 8px 0;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #e74c3c;
+}
+
+/* @media (min-width: 992px) {
+    .menu-toggle {
+        display: none;
+    }
+
+    .nav-dropdown {
+        display: none;
+    }
+} */
