@@ -1,0 +1,122 @@
+/* --------------------------------------------- */
+/* Skills Section */
+/* --------------------------------------------- */
+
+.skills-section {
+    background-color: #f8f9fa;
+    padding: 60px 0;
+    border-top: 1px solid #ccc;
+}
+
+/* Section Headings */
+.skills-section .section-title {
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.skills-section .section-subtitle {
+    font-style: italic;
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+
+/* --------------------------------------------- */
+/* Skills Layout */
+/* --------------------------------------------- */
+
+.skills-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.skills-col {
+    flex: 1 1 400px;
+    min-width: 280px;
+}
+
+
+/* --------------------------------------------- */
+/* Skill Bars */
+/* --------------------------------------------- */
+
+.skills-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    padding-top: 40px;
+    position: relative;
+}
+
+.skills-col {
+    flex: 1;
+    padding: 0 20px;
+    min-width: 200px;
+    max-width: 300px;
+    text-align: center;
+    position: relative;
+}
+
+/* Vertical lines between columns */
+.skills-col:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -20px;
+    height: 100%;
+    width: 1px;
+    background-color: #ccc;
+}
+
+/* Titles */
+.skill-level-title {
+    font-size: 18px;
+    color: #e74c3c;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Skill list */
+.skill-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.skill-list li {
+    padding: 10px 0;
+    font-size: 14px;
+    border-bottom : 1px solid #eee;
+    color: #333;
+}
+
+/* Optional hover */
+.skill-list li:hover {
+    color: #e26d6d;
+}
+
+/* Responsive Stack */
+@media (max-width: 768px) {
+    .skills-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .skills-col::after {
+        display: none;
+    }
+
+    .skills-col {
+        max-width: 100%;
+        padding: 0;
+    }
+}
