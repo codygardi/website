@@ -19,29 +19,6 @@
 <body>
 
   <!-- ================================= -->
-  <!-- Navbar -->
-  <!-- ================================= -->
-  <nav class="navbar">
-      <div class="container">
-          <a class="navbar-brand" href="#">Cody Gardi</a>
-      
-          <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-              <i class="bi bi-list"></i>
-          </button>
-      </div>
-    
-      <!-- Dropdown Menu -->
-      <div class="nav-dropdown" id="navbarDropdown">
-          <ul class="nav-list">
-              <li><a class="nav-link" href="#about">About Me</a></li>
-              <li><a class="nav-link" href="#skills">Skills</a></li>
-              <li><a class="nav-link" href="#education">Education</a></li>
-              <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
-              <li><a class="nav-link" href="#contact">Contact</a></li>
-          </ul>
-      </div>
-  </nav>
-  <!-- ================================= -->
   <!-- Landing Page Section -->
   <!-- ================================= -->
   <section id="home" class="landingpage-section">
@@ -53,7 +30,7 @@
           <div class="social-line"></div> <!-- <--- Add this -->
           <a href="https://www.linkedin.com/in/codygardi/"><i class="bi bi-linkedin"></i></a>
           <a href="https://github.com/codygardi"><i class="bi bi-github"></i></a>
-          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.instagram.com/codygardi"><i class="bi bi-instagram"></i></a>
       </div>
 
       <!-- Main Content -->
@@ -62,12 +39,12 @@
           <p class="lead">Information Technology Professional & Cybersecurity Student</p>
 
           <!-- Learn More Button -->
-          <a href="#about" class="btn btn-outline-light learn-more-btn">Learn More</a>
+          <a href="about" class="btn btn-outline-light learn-more-btn">Learn More</a>
       </div>
 
       <!-- Scroll Down -->
       <div class="scroll-down-indicator">
-          <a href="#about">Scroll Down <i class="bi bi-arrow-down large"></i></a>
+          <a href="about">Scroll Down <i class="bi bi-arrow-down large"></i></a>
       </div>
     </div>
   </section>
@@ -84,16 +61,16 @@
           <div class="aboutme-row">
               <!-- Text Column -->
               <div class="aboutme-col">
-                  <h6 class="text-muted mb-4">Current Location: <b>San Francisco, CA</b></h6>
+                  <h6 class="text-muted mb-4">Current Location: <b class="about-location">San Francisco, CA</b></h6>
                   <p>
-                      I’m an IT professional with a background in cloud operations, networking, and technical support. 
+                      An IT professional with a background in cloud operations, networking, and technical support. 
                       As a cybersecurity student, I approach every challenge with a focus on security and efficiency.
                   </p>
                   <p>
                       I’m passionate about bridging the gap between technical solutions and non-technical audiences. 
                       My goal is to help people feel confident and secure in the digital world.
                   </p>
-                  <a href="#" class="about-btn">Check out my blog</a>
+                  <!-- <a href="#" class="about-btn">Check out my blog</a> -->
               </div>
       
               <!-- Image Column -->
@@ -115,45 +92,55 @@
           </div>
     
           <div class="skills-row">
-              <!-- Left Column -->
-              <div class="skills-col">
-                  <p>
-                      I’m an IT professional with a background in cloud operations, networking, and technical support. 
-                      As a cybersecurity student, I approach every challenge with a focus on security and efficiency.
-                  </p>
-                  <p>
-                      I’m passionate about bridging the gap between technical solutions and non-technical audiences. 
-                      My goal is to help people feel confident and secure in the digital world.
-                  </p>
-              </div>
-    
-              <!-- Right Column -->
-              <div class="skills-col">
-                  <div class="skill">
-                      <h6>Python <span>80%</span></h6>
-                      <div class="progress-bar-wrapper">
-                          <div class="progress-bar-fill" style="width: 80%;"></div>
-                      </div>
-                  </div>
-                  <div class="skill">
-                      <h6>HTML / CSS <span>74%</span></h6>
-                      <div class="progress-bar-wrapper">
-                          <div class="progress-bar-fill" style="width: 74%;"></div>
-                      </div>
-                  </div>
-                  <div class="skill">
-                      <h6>SQL <span>41%</span></h6>
-                      <div class="progress-bar-wrapper">
-                      <div class="progress-bar-fill" style="width: 41%;"></div>
-                      </div>
-                  </div>
-                  <div class="skill">
-                      <h6>Bash <span>22%</span></h6>
-                      <div class="progress-bar-wrapper">
-                          <div class="progress-bar-fill" style="width: 22%;"></div>
-                      </div>
-                  </div>
-              </div>
+              <div class="skills-row">
+    <!-- skill 1 -->
+    <div class="skills-col">
+        <h3 class="skill-level-title">Soft Skills</h3>
+        <ul class="skill-list">
+            <li>Business & Consumer Relationship Management</li>
+            <li>Root-Cause Analysis</li>
+            <li>Adaptability & Resourcefulness</li>
+            <li>Coachability</li>
+            <li>Teamwork & Leadership</li>          
+        </ul>
+    </div>
+
+    <!-- skill 2 -->
+    <div class="skills-col">
+        <h3 class="skill-level-title">Technical Skills</h3>
+        <ul class="skill-list">
+            <li>Network & Infrastructure</li>
+            <li>Cloud & SaaS Platforms</li>
+            <li>Data & Analytics</li>
+            <li>Workflow Management</li>
+            <li>IT Service & Collaboration Platforms
+        </ul>
+    </div>
+
+    <!-- skill 3 -->
+    <div class="skills-col">
+        <h3 class="skill-level-title">Programming Languages</h3>
+        <ul class="skill-list">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>SQL</li>
+            <li>Python</li>
+        </ul>
+    </div>
+
+    <!-- skill 4 -->
+    <div class="skills-col">
+        <h3 class="skill-level-title">Cybersecurity</h3>
+        <ul class="skill-list">
+          <li>Encryption & Data Protection</li>
+          <li>Security Operations</li>
+          <li>Threat Detection & Incident Response</li>
+          <li>Cloud Security (SaaS, DaaS, MSS)</li>
+          <li>Compliance Frameworks (NIST, PCI DSS, HIPAA)</li>
+        </ul>
+    </div>
+</div>
+
           </div>
       </div>
   </section>
@@ -181,23 +168,28 @@
         <ul id="education-items" class="educationContainer">
           <li class="item degrees">
             <div class="lightCon">
-              <img src="images/thumb-images/thumb1.jpg" alt="WordPress Project" />
+              <img src="images/dvc.png" alt="WordPress Project" />
             </div>
-          </li>
-          <li class="item certifications">
-            <div class="lightCon">
-              <img src="images/dataanalytics.png" alt="Web Design Project" />
-            </div>
-          </li>
-          <li class="item certifications">
-              <div class="lightCon">
-                <img src="images/mlandai.png" alt="WordPress Project" />
-              </div>
           </li>
           <li class="item certifications">
           <div class="lightCon">
-              <img src="images/cc.png" alt="Web Design Project" />
+              <img src="images/dataanalytics.png" alt="Web Design Project" />
           </div>
+          </li>
+          <li class="item certifications">
+              <div class="lightCon">
+                <img src="images/aiml.png" alt="WordPress Project" />
+              </div>
+          </li>
+          <li class="item degrees">
+          <div class="lightCon">
+              <img src="images/csueb.png" alt="WordPress Project" />
+          </div>
+          </li>
+          <li class="item certifications">
+            <div class="lightCon">
+              <img src="images/cc.png" alt="Web Design Project" />
+            </div>
           </li>
           <li class="item certifications">
           <div class="lightCon">
@@ -211,14 +203,14 @@
           </li> -->
           <li class="item degrees">
           <div class="lightCon">
-              <img src="images/thumb-images/thumb2.jpg" alt="Web Design Project" />
+              <img src="images/masters_deg.jpg" alt="Web Design Project" />
           </div>
           </li>
-          <li class="item degrees">
-          <div class="lightCon">
-              <img src="images/thumb-images/thumb3.jpg" alt="WordPress Project" />
-          </div>
-          </li>
+          <!-- <li class="item certifications">
+              <div class="lightCon">
+                <img src="images/mlai_cert.png" alt="WordPress Project" />
+              </div>
+          </li> -->
         </ul>
       </div>
     </section>
@@ -328,6 +320,7 @@
   </footer>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.isotope.js"></script>
+<script src="js/navbar.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
