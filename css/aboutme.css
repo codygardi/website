@@ -31,12 +31,14 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    max-width: 70%; /* or any value you want */
+    margin: 0 auto;     /* center container */
     gap: 40px;
     align-items: center;
 }
 
 .aboutme-col {
-    flex: 1 1 400px;
+    flex: 1 4 400px;
     min-width: 5%;
 }
 
@@ -48,6 +50,7 @@
 .about-img {
     width: 50%;
     height: auto;
+    justify-content: right;
     object-fit: cover;
     border: 1px solid #cbcbcb;
     padding: 8px;
