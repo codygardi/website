@@ -31,6 +31,8 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
+    max-width: 70%; /* or any value you want */
+    margin: 0 auto;     /* center container */
 }
 
 /* Individual Project Container */
