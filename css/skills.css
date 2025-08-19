@@ -33,6 +33,8 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 40px;
+    max-width: 80%; /* or any value you want */
+    margin: 0 auto;     /* center container */
 }
 
 .skills-col {
