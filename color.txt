@@ -1,0 +1,8 @@
+#F3EEE1 - cloudy white
+#FBFFFF - neon white
+#f3f3f3 - concrete
+#00ffff - neon blue
+#FF00FF - neon pink
+#39FF14 - neon green
+#fff204 - neon yellow
+#1a1c20 - satin deep black

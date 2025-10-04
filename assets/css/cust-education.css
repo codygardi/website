@@ -1,0 +1,82 @@
+/* ===== EDUCATION (JS-driven filtering + fade-in) ===== */
+.edu {
+  --accent:#00ffff; --ink:#f3f3f3; --muted:#b8c0c2;
+  --card-bg:#1a1c20; --card-br:#aaaaaa8a; --shadow:0 0 10px -6px #FBFFFF;
+}
+
+.edu .edu-wrap { max-width: 1200px; margin: 0 auto; padding-top: 2em; padding-bottom: 2em;}
+
+/* ------ Filters ------ */
+.edu .edu-filters{
+  display:flex; gap:2.25rem; justify-content:center; align-items:center;
+  margin:0 0 1.5rem 0; user-select:none; position:relative;
+}
+.edu .sep{ width:28px; height:1px; background:#ffffff1f; padding-bottom: 2em; display:inline-block; transform:translateY(1px); }
+
+.edu .edu-filter-btn{
+  background:transparent; border:0; color:var(--muted);
+  font:inherit; letter-spacing:.08em; font-size:1.15rem; padding:.25rem 0;
+  cursor:pointer; position:relative; transition:color .2s ease;
+}
+.edu .edu-filter-btn:hover{ color:var(--ink); }
+
+.edu .edu-filter-btn::after{
+  content:""; position:absolute; left:0; right:0; bottom:-10px; height:2px;
+  transform:scaleX(0); transform-origin:center;
+  background:var(--accent); box-shadow:0 0 18px var(--accent);
+  transition:transform .2s ease;
+}
+.edu .edu-filter-btn.is-active{ color:var(--accent); text-shadow:0 0 20px var(--accent); }
+.edu .edu-filter-btn.is-active::after{ transform:scaleX(1); }
+
+/* ------ Grid ------ */
+.edu .edu-grid{
+  display:grid;
+  grid-template-columns:repeat(16, 1fr);
+  column-gap:4px; row-gap:0;
+  align-items:stretch;
+  grid-auto-flow: row;  /* ensure L→R, top→bottom order */
+  padding-top: 2em;
+}
+
+/* remove inherited article margin that causes gaps */
+.edu .edu-grid > article,
+.edu .edu-grid > .edu-item{ margin:0 !important; }
+
+.edu .tile{ grid-column:span 4; }
+@media (max-width:980px){ .edu .tile{ grid-column:span 8; } }
+@media (max-width:620px){ .edu .tile{ grid-column:span 6; } }
+
+/* ------ Card ------ */
+.edu .edu-item{
+  background:var(--card-bg); border:1px solid var(--card-br); box-shadow:var(--shadow);
+  border-radius:10px; overflow:hidden; display:flex; flex-direction:column;
+  opacity:1; transform:none;   /* JS will override inline */
+}
+.edu .edu-item figure{ aspect-ratio:4/4; overflow:hidden; }
+.edu .edu-item img{ width:100%; height:100%; object-fit:cover; display:block; }
+.edu .edu-item .cap{
+  padding:.65rem .85rem; border-top:1px solid #ffffff12; display:flex;
+  justify-content:space-between; align-items:center; gap:.75rem;
+}
+.edu .title{ color:var(--ink); font-size:.95rem; line-height:1.25; }
+.edu .tag{ font-size:.72rem; padding:.18rem .5rem; border:1px solid var(--accent);
+  color:var(--accent); border-radius:999px; text-transform:uppercase; letter-spacing:.06em; }
+
+/* hidden state toggled by JS */
+.edu .is-hidden{ display:none !important; }
+
+/* a11y */
+.edu .edu-filter-btn:focus-visible{ outline:2px dashed var(--accent); outline-offset:6px; }
+
+.education-line {
+  display: inline-block;
+  width: 1px;
+  height: 44px;
+  background-color: #FBFFFF;
+  /* box-shadow: 0px 0px 1px 0.2px #f3f3f3; */
+  margin-left: 1em;
+  margin-right: 1em;
+  opacity: 1;
+  vertical-align: middle;
+}

@@ -1,0 +1,43 @@
+  .social-group {
+    color: #00ffff;
+    /* text-shadow: -1px 1px 5px #f3f3f380; */
+    display: inline;
+    width: 40px;
+    height: 1px;
+    opacity: 1;
+    font-size: medium;
+    font-weight: 200;
+  }  
+
+  .social-group .bi.bi {
+    font-size: 1.8rem; 
+    text-shadow: 0px 0px 5px #00ffff
+  }
+
+  @media screen and (max-width: 736px) {
+    .social-group .bi.bi {
+      font-size: 1.8rem; 
+      /* text-shadow: -2px 1px 5px #f3f3f3 */
+    }
+  }
+
+  .social-line {
+    display: inline-block;
+    width: 44px;
+    height: 0.1px;
+    background-color: #f3f3f3;
+    /* box-shadow: 0px 0px 1px 0.2px #f3f3f3; */
+    margin-left: 1em;
+    margin-right: 1em;
+    opacity: 1;
+    vertical-align: middle;
+  }
+
+  .social-note{
+    font-size: x-large;
+    font-weight: 300;
+    margin-left: .5em;
+    margin-bottom: .8em;
+    margin-top: -2em;
+  }
+  
