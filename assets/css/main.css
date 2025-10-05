@@ -472,7 +472,7 @@ body {
 					position: absolute;
 					top: 50%;
 					left: 50%;
-					transform: translate(-50%, -50%);
+					transform: translate(-50%, -50%) scale(1.5);
 					width: auto;
 					height: auto;
 					max-width: 100%;
@@ -480,72 +480,6 @@ body {
 					object-fit: contain;
 					object-position: center;
 				}
-
-
-					#main > .panel.intro .pic .bi-key-fill {
-						display: block;
-						position: absolute;
-						right: 2%;
-						top: 50%;
-						overflow: hidden;
-						margin-top: -1.375em;
-						width: 2.75em;
-						height: 2.75em;
-						background: #0000003a;
-						border-radius: 50px;
-						color: #00ffff;
-						text-shadow: 0px 0px 20px #00ffff; 
-						text-align: center;
-						line-height: 2.75em;
-						font-size: 1.5em;
-						z-index: 1;
-						-moz-transition: width .15s ease-in-out, padding-right .15s ease-in-out, overflow .15s ease-in-out;
-						-webkit-transition: width .15s ease-in-out, padding-right .15s ease-in-out, overflow .15s ease-in-out;
-						-ms-transition: width .15s ease-in-out, padding-right .15s ease-in-out, overflow .15s ease-in-out;
-						transition: width .15s ease-in-out, padding-right .15s ease-in-out, overflow .15s ease-in-out;
-					}
-
-						#main > .panel.intro .pic .bi-key-fill:before {
-							position: relative;
-							padding-right: 0;
-							top: 0.125em;
-						}
-
-						#main > .panel.intro .pic .bi-key-fill span {
-							display: block;
-							text-indent: -9999px;
-						}
-
-					#main > .panel.intro .pic:hover .bi-key-fill {
-						transition: all 0.25s ease;
-						background: #0000007e;
-					}
-
-
-				#main > .panel.intro header {
-					-moz-flex-grow: 1;
-					-webkit-flex-grow: 1;
-					-ms-flex-grow: 1;
-					flex-grow: 1;
-					-moz-flex-shrink: 1;
-					-webkit-flex-shrink: 1;
-					-ms-flex-shrink: 1;
-					flex-shrink: 1;
-					padding: 3.5em 2.5em;
-					margin-bottom: 0;
-					width: 100%;
-				}
-
-					#main > .panel.intro header h1 {
-						line-height: 1.25em;
-						margin-bottom: 0;
-					}
-
-					#main > .panel.intro header p {
-						letter-spacing: -0.015em;
-						font-size: 1.25em;
-						margin: 0.25em 0 0 0;
-					}
 
 				@media screen and (max-width: 980px) {
 
