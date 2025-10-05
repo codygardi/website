@@ -33,6 +33,25 @@
     vertical-align: middle;
   }
 
+  @media screen and (max-width: 1200px) {
+		.social-line { width: 8em; }
+  }
+
+  @media screen and (max-width: 980px) {
+    .social-line { width: 8em; }
+  }
+
+  @media screen and (max-width: 768px) {
+    .social-line { width: 4em; }
+  }
+
+  @media screen and (max-width: 480px) {
+    .social-line { width: 2em; }
+  }
+
+  @media screen and (max-width: 375px) {
+    .social-line { width: 2em; }
+  }
   .social-note{
     font-size: x-large;
     font-weight: 300;
@@ -40,6 +59,4 @@
     margin-bottom: .8em;
     margin-top: -2em;
   }
-
   
-
