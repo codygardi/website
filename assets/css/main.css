@@ -480,6 +480,18 @@ body {
 					object-fit: contain;
 					object-position: center;
 				}
+				#main > .panel.intro .pic video {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					width: auto;
+					height: auto;
+					max-width: 100%;
+					max-height: 100%;
+					object-fit: contain;
+					object-position: center;
+				}
 
 				@media screen and (max-width: 980px) {
 
@@ -492,7 +504,7 @@ body {
 					}
 
 						#main > .panel.intro .pic {
-							height: 34em;
+							height: 25em;
 							width: 100%;
 						}
 
@@ -506,7 +518,7 @@ body {
 				@media screen and (max-width: 768px) {
 
 					#main > .panel.intro .pic {
-						height: 39em;
+						height: 25em;
 					}
 
 					#main > .panel.intro header {
@@ -523,7 +535,7 @@ body {
 				@media screen and (max-width: 425px) {
 
 					#main > .panel.intro .pic {
-						height: 21em;
+						height: 14em;
 					}
 
 					#main > .panel.intro header {
@@ -540,7 +552,7 @@ body {
 				@media screen and (max-width: 375px) {
 
 					#main > .panel.intro .pic {
-						height:19em;
+						height:12em;
 					}
 
 					#main > .panel.intro header {
@@ -593,7 +605,24 @@ body {
 			padding-top: 0em; /* tighter vertical alignment */
 			padding-right: 0em;
 			margin: 0 0rem;
-			font-size: 0.8rem;
+			font-size: 0.6rem;
+			text-align: center;
+			align-items: center;
+		}
+	}
+	@media screen and (max-width: 425px) {
+		#footer {
+			padding-bottom: 2em; /* reduce from 2em */
+			line-height: 1; /* Make icon location higher/lower */
+			text-align: center;
+			align-items: center;
+		}
+	
+		#footer a {
+			padding-top: 0em; /* tighter vertical alignment */
+			padding-right: 0em;
+			margin: 0 0rem;
+			font-size: 0.5rem;
 			text-align: center;
 			align-items: center;
 		}
