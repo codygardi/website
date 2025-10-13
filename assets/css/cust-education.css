@@ -52,7 +52,7 @@
 /* ------ Grid (auto-fit prevents overlap) ------ */
 .edu .edu-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);  /* 5 per row on laptops+ */
+  grid-template-columns: repeat(4, 1fr);  /* 5 per row on laptops+ */
   gap: clamp(8px, 1.5vw, 16px);
   align-items: stretch;
   justify-content: center;
@@ -61,7 +61,7 @@
 /* Adjust columns per device size */
 @media (max-width: 1200px) {
   .edu .edu-grid {
-    grid-template-columns: repeat(5, 1fr); /* 4 per row for large tablets */
+    grid-template-columns: repeat(4, 1fr); /* 4 per row for large tablets */
   }
 }
 @media (max-width: 980px) {
@@ -123,3 +123,4 @@
 
 /* a11y */
 .edu .edu-filter-btn:focus-visible{ outline:2px dashed var(--accent); outline-offset:6px; }
+
