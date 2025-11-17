@@ -42,7 +42,7 @@
     width: 100%;
     padding-top: 2em;
     padding: 14px 16px;
-    font-size: 16px;
+    font-size: 1.25rem;
     border-radius: 5px;
     border: 1px solid #868686;
     color: #f3f3f3;
@@ -86,3 +86,4 @@
     text-shadow: 0px 0px 15px #00ffff;
     box-shadow: 0px 0px 10px #00ffff;
 }
+
