@@ -23,7 +23,7 @@
 }
 
 .project-content p {
-  font-size: 0.95rem;
+  font-size: 1.25rem;
   color: #aaa;
   line-height: 1.6;
 }
@@ -94,3 +94,4 @@
     margin-top: 0.5rem;
   }
 }
+
