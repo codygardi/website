@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <title>Palette Theme Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      color-scheme: light dark;
+      --transition-fast: 180ms ease-out;
+      --radius-lg: 14px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.12);
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    /* LIGHT THEME */
+    :root[data-theme="light"] {
+      --bg: #f2f2f3;
+      --bg-elevated: #eeeeee;
+      --text: #111418;
+      --text-muted: #8ca4ac;
+      --accent: #217eaa;
+      --accent-soft: #7d9cb7;
+      --accent-contrast: #f2f2f3;
+      --border-subtle: #d6dde0;
+      --chip-bg: #e4ecf2;
+      --chip-text: #217eaa;
+      --link: #217eaa;
+      --nav-bg: rgba(242, 242, 243, 0.92);
+      --nav-border: rgba(140, 164, 172, 0.25);
+    }
+
+    /* DARK THEME (neon accent) */
+    :root[data-theme="dark"] {
+      --bg: #05070a;
+      --bg-elevated: #10141b;
+      --text: #f2f2f3;
+      --text-muted: #8ca4ac;
+      --accent: #00ffff;           /* neon blue */
+      --accent-soft: #217eaa;      /* secondary blue */
+      --accent-contrast: #05070a;
+      --border-subtle: #2a3036;
+      --chip-bg: rgba(0, 255, 255, 0.12);
+      --chip-text: #00ffff;
+      --link: #00ffff;
+      --nav-bg: rgba(5, 7, 10, 0.9);
+      --nav-border: rgba(124, 156, 183, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at top left, rgba(125,156,183,0.22), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(33,126,170,0.18), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      transition:
+        background 240ms ease-out,
+        color 180ms ease-out;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.25rem 1.25rem 3rem;
+    }
+
+    /* Top navigation */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--nav-border);
+      margin: 0 -1.25rem 1.75rem;
+      padding: 0.65rem 1.25rem;
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .nav-title {
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .nav-subtitle {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-link {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.15rem 0.4rem;
+      border-radius: 999px;
+      transition: color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      color: var(--link);
+      background: rgba(140, 164, 172, 0.12);
+    }
+
+    .theme-toggle {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      color: var(--text);
+      padding: 0.35rem 0.85rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        transform 100ms ease-out,
+        box-shadow 120ms ease-out;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent-soft);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    /* Layout sections */
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 2.25rem;
+      align-items: flex-start;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 800px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* Hero content */
+
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 3vw, 2.7rem);
+      line-height: 1.1;
+      margin: 0 0 0.8rem;
+    }
+
+    .hero-title span {
+      background-image: linear-gradient(120deg, var(--accent), var(--accent-soft));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.96rem;
+      color: var(--text-muted);
+      max-width: 38rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .btn-primary {
+      border: none;
+      border-radius: var(--radius-pill);
+      background: radial-gradient(circle at top left, var(--accent), var(--accent-soft));
+      color: var(--accent-contrast);
+      padding: 0.7rem 1.4rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      box-shadow: var(--shadow-soft);
+      transition:
+        transform 120ms ease-out,
+        box-shadow 120ms ease-out,
+        filter var(--transition-fast);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.28);
+    }
+
+    .btn-ghost {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      background: transparent;
+      color: var(--text);
+      padding: 0.65rem 1.2rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        transform 100ms ease-out;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(140, 164, 172, 0.10);
+      border-color: var(--accent-soft);
+      transform: translateY(-1px);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: var(--radius-pill);
+      padding: 0.2rem 0.7rem;
+      background: var(--chip-bg);
+      color: var(--chip-text);
+      border: 1px solid rgba(140,164,172,0.35);
+      font-size: 0.78rem;
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--chip-text);
+      box-shadow: 0 0 12px rgba(0,255,255,0.85);
+    }
+
+    /* Right column: cards */
+
+    .side-stack {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .card {
+      background: linear-gradient(135deg,
+                 rgba(125,156,183,0.16),
+                 rgba(17,20,24,0.05)),
+                 var(--bg-elevated);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 1rem 1.1rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(10px);
+      transition:
+        transform 120ms ease-out,
+        box-shadow 140ms ease-out,
+        border-color 160ms ease-out,
+        background 200ms ease-out;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.7rem;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .card-tag {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .card-body {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 0.65rem;
+    }
+
+    .metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      font-size: 0.82rem;
+    }
+
+    .metric {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .metric-label {
+      color: var(--text-muted);
+    }
+
+    .metric-value {
+      font-weight: 600;
+    }
+
+    /* Content section */
+
+    .section {
+      margin-top: 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
+
+    .section-link {
+      font-size: 0.82rem;
+      color: var(--link);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      transition: border-color var(--transition-fast), color var(--transition-fast);
+    }
+
+    .section-link:hover {
+      border-color: var(--link);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid-3 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(140, 164, 172, 0.5);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+    }
+
+    /* Footer */
+
+    .footer {
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 2.75rem;
+      padding-top: 1.1rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="nav-title">Neon Layout</div>
+        <div class="nav-subtitle">Light and Dark Theme Demo</div>
+      </div>
+      <div class="nav-right">
+        <a href="#work" class="nav-link">Overview</a>
+        <a href="#sections" class="nav-link">Sections</a>
+        <button id="themeToggle" class="theme-toggle" type="button">
+          <span id="themeLabel">Switch to dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="layout">
+      <!-- Left: Hero -->
+      <div>
+        <div class="hero-eyebrow">Design system preview</div>
+        <h1 class="hero-title">
+          A clean interface with a <span>neon blue</span> dark mode.
+        </h1>
+        <p class="hero-subtitle">
+          This demo shows how your palette behaves in both light and dark themes, with the dark mode using a vivid neon accent for primary actions and highlights.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn-primary" type="button">
+            Primary action
+          </button>
+          <button class="btn-ghost" type="button">
+            Secondary action
+          </button>
+        </div>
+
+        <div class="hero-meta">
+          <div class="chip">
+            <span class="chip-dot"></span>
+            Live theme toggle
+          </div>
+          <div>Light: #f2f2f3 / #eeeeee</div>
+          <div>Dark: neon #00ffff accents</div>
+        </div>
+      </div>
+
+      <!-- Right: Cards -->
+      <aside class="side-stack">
+        <article class="card">
+          <div class="card-header">
+            <h2 class="card-title">Theme status</h2>
+            <span class="card-tag">System</span>
+          </div>
+          <p class="card-body">
+            This card adjusts its background, shadow, and accent colors based on the active theme while keeping structure identical.
+          </p>
+          <div class="metric-row">
+            <div class="metric">
+              <span class="metric-label">Accent</span>
+              <span class="metric-value">#217eaa / #00ffff</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Surface</span>
+              <span class="metric-value">#eeeeee / #10141b</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h2 class="card-title">Usage</h2>
+            <span class="card-tag">Guidance</span>
+          </div>
+          <p class="card-body">
+            Use the neon accent for CTAs, links, and focus states in dark mode. Reserve the softer blues for backgrounds, chips, and secondary emphasis.
+          </p>
+          <div class="metric-row">
+            <div class="metric">
+              <span class="metric-label">Muted text</span>
+              <span class="metric-value">#8ca4ac</span>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Border</span>
+              <span class="metric-value">Subtle gradient</span>
+            </div>
+          </div>
+        </article>
+      </aside>
+    </section>
+
+    <!-- Content section -->
+    <section id="sections" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Layout sections</h2>
+        <a href="#top" class="section-link">Back to top</a>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <div class="card-header">
+            <h3 class="card-title">Header</h3>
+            <span class="card-tag">Navigation</span>
+          </div>
+          <p class="card-body">
+            Sticky navigation with subtle blur and semi-transparent background that adapts to theme.
+          </p>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            Uses #8ca4ac for hover states
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3 class="card-title">Main content</h3>
+            <span class="card-tag">Hero</span>
+          </div>
+          <p class="card-body">
+            Large title with gradient accent text, soft description, and primary/secondary actions.
+          </p>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            Gradient from #217eaa to #7d9cb7
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3 class="card-title">Cards</h3>
+            <span class="card-tag">Surfaces</span>
+          </div>
+          <p class="card-body">
+            Elevated surfaces using your blues as a subtle glass layer over the base background.
+          </p>
+          <div class="pill">
+            <span class="pill-dot"></span>
+            Border: #d6dde0 / #2a3036
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Palette-based theme demo.</span>
+      <span>Light: soft blue accents. Dark: neon blue focus.</span>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const btn = document.getElementById("themeToggle");
+      const label = document.getElementById("themeLabel");
+
+      function setTheme(theme) {
+        root.setAttribute("data-theme", theme);
+        label.textContent = theme === "dark" ? "Switch to light" : "Switch to dark";
+        try {
+          localStorage.setItem("demo-theme", theme);
+        } catch (e) {
+          // ignore storage errors
+        }
+      }
+
+      // Initialize from localStorage or prefers-color-scheme
+      (function initTheme() {
+        let stored;
+        try {
+          stored = localStorage.getItem("demo-theme");
+        } catch (e) {
+          stored = null;
+        }
+
+        if (stored === "light" || stored === "dark") {
+          setTheme(stored);
+        } else if (window.matchMedia &&
+                   window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          setTheme("dark");
+        } else {
+          setTheme("light");
+        }
+      })();
+
+      btn.addEventListener("click", () => {
+        const current = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+        const next = current === "dark" ? "light" : "dark";
+        setTheme(next);
+      });
+    })();
+  </script>
+</body>
+</html>
