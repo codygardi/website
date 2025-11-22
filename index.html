@@ -26,7 +26,7 @@
 					<nav id="nav">
 						<a href="#" class="bi bi-house"><span>Home</span></a>
 						<a href="#about" class="bi bi-person"><span>About</span></a>
-						<!-- <a href="#experience" class="bi bi-journal-check"><span>Experience</span></a> -->
+						<a href="#experience" class="bi bi-journal-check"><span>Experience</span></a>
 						<a href="#education" class="bi bi-book"><span>Education</span></a>
 						<a href="#projects" class="bi bi-folder2-open"><span>Projects</span></a>
 						<a href="#contact" class="bi bi-envelope"><span>Contact</span></a>
@@ -111,11 +111,9 @@
 								<div class="wheel" aria-live="polite">
 									<!-- Replace with your items (any count) -->
 									<div class="item">Python</div>
-									<div class="item">JavaScript</div>
 									<div class="item">SQL</div>
-									<div class="item">Bash</div>
-									<div class="item">PowerShell</div>
-									<div class="item">C#</div>
+									<div class="item">CSS</div>
+									<div class="item">HTML</div>
 								</div>
 								</div>
 
@@ -125,7 +123,7 @@
 								<div class="wheel" aria-live="polite">
 									<div class="item">Networking (VLANs, VPN)</div>
 									<div class="item">Azure (RBAC, KV, Backup)</div>
-									<div class="item">SIEM (ELK/Graylog)</div>
+									<div class="item">SIEM (Wazuh)</div>
 									<div class="item">Linux & Windows Admin</div>
 									<div class="item">Docker</div>
 									<div class="item">Git/GitHub</div>
@@ -170,66 +168,121 @@
 						</header>
 						
 						<!-- slower domino: 180ms spacing, 600ms fade -->
-						<section class="edu" data-step="180" data-fade="600" data-ignore-reduce="1">
-
+						<section class="edu" data-step="90" data-fade="1600" data-ignore-reduce="1">
 						<div class="edu-wrap">
-
-							<!-- Filters -->
-							<div class="edu-filters" aria-label="Education filters" role="tablist">
-							<button type="button" class="edu-filter-btn is-active" data-filter="all"  role="tab" aria-selected="true">ALL</button>
-							<span class="education-line"></span>
-							<button type="button" class="edu-filter-btn"        data-filter="cert" role="tab" aria-selected="false">CERTIFICATIONS</button>
-							<span class="education-line"></span>
-							<button type="button" class="edu-filter-btn"        data-filter="deg"  role="tab" aria-selected="false">DEGREES</button>
+							<div class="edu-filter-row">
+							<div class="col">
+								<button class="edu-filter-btn is-active" data-filter="all">All</button>
+							</div>
+							<div class="col">
+								<button class="edu-filter-btn" data-filter="degree">Degrees</button>
+							</div>
+							<div class="col">
+								<button class="edu-filter-btn" data-filter="certificate">Certificates</button>
+							</div>
 							</div>
 
-							<!-- Grid -->
-							<div class="edu-grid" id="edu-grid">
-							<!-- DEGREES -->
-							<article class="tile edu-item cat-deg">
-								<figure><img src="images/comingsoonpic.jpg" alt="M.S. Cybersecurity and Information Assurance"></figure>
-								<div class="cap"><div class="title">M.S. — Cybersecurity and Information Assurance</div><div class="tag">Degree</div></div>
-							</article>
+							<!-- ===== GRID OF EDUCATION CARDS ===== -->
+							<div class="edu-grid">
+								<div class="edu-item">
+								<figure class="edu-img">
+									<img src="images/comingsoonpic.jpg" alt="masters">
+								</figure>
+								<div class="edu-cap">
+									<div class="edu-title">M.S. — Cybersecurity and Information Assurance</div>
+									<div class="edu-tag">Degree</div>
+								</div>
+								</div>
 
-							<article class="tile edu-item cat-deg">
-								<figure><img src="images/csueb.png" alt="B.S. Business Administration (IT Management)"></figure>
-								<div class="cap"><div class="title">B.S. — IT Management (Business Administration)</div><div class="tag">Degree</div></div>
-							</article>
+								<div class="edu-item">
+								<figure class="edu-img">
+									<img src="images/csueb.png" alt="bachelors">
+								</figure>
+								<div class="edu-cap">
+									<div class="edu-title">B.S. — IT Management (Business Administration)</div>
+									<div class="edu-tag">Degree</div>
+								</div>
+								</div>
+								<div class="edu-item">
+								<figure class="edu-img">
+									<img src="images/dvc.png" alt="associates">
+								</figure>
+								<div class="edu-cap">
+									<div class="edu-title">A.S. — Business Administration</div>
+									<div class="edu-tag">Degree</div>
+								</div>
+								</div>
+								
+								<div class="edu-item">
+								<figure class="edu-img">
+									<img src="images/comingsoonpic.jpg" alt="cissp">
+								</figure>
+								<div class="edu-cap">
+									<div class="edu-title">Certified Information Systems Security Professional (CISSP)</div>
+									<div class="edu-tag">Certificate</div>
+								</div>
+								</div>
 
-							<article class="tile edu-item cat-deg">
-								<figure><img src="images/dvc.png" alt="A.S. Business Administration"></figure>
-								<div class="cap"><div class="title">A.S. — Business Administration</div><div class="tag">Degree</div></div>
-							</article>
-							<!-- CERTIFICATIONS -->
-							<article class="tile edu-item cat-cert">
-								<figure><img src="images/comingsoonpic.jpg" alt="CompTIA PenTest+"></figure>
-								<div class="cap"><div class="title">CompTIA PenTest+ (PT0-003)</div><div class="tag">Certificate</div></div>
-							</article>
+								<div class="edu-item">
+								<figure class="edu-img">
+									<img src="images/comingsoonpic.jpg" alt="PenTest">
+								</figure>
+								<div class="edu-cap">
+									<div class="edu-title">CompTIA PenTest+ (PT0-003)</div>
+									<div class="edu-tag">Certificate</div>
+								</div>
+								</div>
+								
+								<div class="edu-item">
+								<figure class="edu-img">
+									<img src="images/cysa.png" alt="cysa">
+								</figure>
+								<div class="edu-cap">
+									<div class="edu-title">CompTIA CySA+ (CS0-003)</div>
+									<div class="edu-tag">Certificate</div>
+								</div>
+								</div>
 
-							<article class="tile edu-item cat-cert">
-								<figure><img src="images/cysa.png" alt="CompTIA CySA+"></figure>
-								<div class="cap"><div class="title">CompTIA CySA+ (CS0-003)</div><div class="tag">Certificate</div></div>
-							</article>
+								<div class="edu-item">
+								<figure class="edu-img">
+									<img src="images/cc.png" alt="PenTest">
+								</figure>
+								<div class="edu-cap">
+									<div class="edu-title">ISC2 Certified in Cybersecurity</div>
+									<div class="edu-tag">Certificate</div>
+								</div>
+								</div>
 
-							<article class="tile edu-item cat-cert">
-								<figure><img src="images/cc.png" alt="ISC2 Certified in Cybersecurity"></figure>
-								<div class="cap"><div class="title">ISC2 Certified in Cybersecurity</div><div class="tag">Certificate</div></div>
-							</article>
-
-							<article class="tile edu-item cat-cert">
-								<figure><img src="images/dataanalytics.png" alt="Microsoft Azure Fundamentals"></figure>
-								<div class="cap"><div class="title">Google Data Analytics</div><div class="tag">Certificate</div></div>
-							</article>
+								<div class="edu-item">
+								<figure class="edu-img">
+									<img src="images/aiml.png" alt="mlai">
+								</figure>
+								<div class="edu-cap">
+									<div class="edu-title">Machine Learning and Artificial Intelligence</div>
+									<div class="edu-tag">Certificate</div>
+								</div>
+								</div>
+								
+								<div class="edu-item">
+								<figure class="edu-img">
+									<img src="images/dataanalytics.png" alt="dataanalytics">
+								</figure>
+								<div class="edu-cap">
+									<div class="edu-title">Google Data Analytics</div>
+									<div class="edu-tag">Certificate</div>
+								</div>
+								</div>
 							</div>
+
+
 						</div>
 						</section>
-					</article>
-
+						</article>
 					<!-- Projects -->
 						<article id="projects" class="panel">
 							<header>
 								<center>
-									<h2>My Projects</h2>
+									<h2>Projects</h2>
 							  		<p>Fun stuff I have made</p>
 								</center>
 							</header>
@@ -251,6 +304,7 @@
 								  	</div>
 								</div>
 							</div>
+
 							<div class="project-section">
 								<div class="project-content">
 									<h3>Automated Scheduling System</h3>
@@ -268,6 +322,7 @@
 								  	</div>
 								</div>
 							</div>
+
 							<div class="project-section">
 								<div class="project-content">
 									<h3>Home Networking Lab</h3>
@@ -284,6 +339,25 @@
 								  	</div>
 								</div>
 							</div>
+
+							<div class="project-section">
+								<div class="project-content">
+									<h3>RAG App</h3>
+									<p>
+										This is a Resource Augmented Generation App. Have you ever typed into ChatGPT, Gemini, or another LLM, 
+										"Give me a step by step tutorial to complete <u>etc</u>......" and it gives you back information from an slightly accurate source or inaccurate information that doesn't make sense all together? 
+										I was so tired of this kind of stuff and paying $20 or more a month to do this so I built this to give me what I need. You upload books and documents in .txt format.
+									</p>
+								</div>
+								<div class="project-media">
+								  	<img src="images/networkinglab.PNG" alt="networkinglab" />
+								  	<div class="button-group">
+										<a href="https://github.com/yourrepo" class="project-button">GitHub</a>
+										<a href="https://yourdemo.com" class="project-button">Live Demo</a>
+								  	</div>
+								</div>
+							</div>
+							
 							<div class="project-section">
 								<div class="project-content">
 									<h3>Password Strength Evaluator</h3>
