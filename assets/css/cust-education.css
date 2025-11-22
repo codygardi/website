@@ -1,126 +1,175 @@
-/* ===== EDUCATION (fully responsive, no-overlap) ===== */
-.edu {
-  --accent:#00ffff; --ink:#f3f3f3; --muted:#b8c0c2;
-  --card-bg:#1a1c20; --card-br:#aaaaaa8a; --shadow:0 0 10px -6px #FBFFFF;
-}
-.edu * { box-sizing: border-box; }
+/* ====================================== */
+/*             EDUCATION BASE             */
+/* ====================================== */
 
-.edu .edu-wrap{
+.edu {
+  --accent: #00ffff;
+
+  --accent-fltr-btn-inactive: #f3f3f3;
+  --accent-fltr-btn-active: #00ffff;
+  --accent-fltr-btn-hover: #00ffff;
+  --accent-fltr-btn-hover: #00ffff;
+  --ink: #f3f3f3;
+  --muted: #b8c0c2;
+  --card-bg: #1a1c20;
+  --card-br: #aaaaaa8a;
+  --card-shadow: 0 0 10px -6px #FBFFFF;
+}
+
+/* Hidden state toggled by JS */
+.edu .is-hidden {
+  display: none !important;
+}
+
+.edu .edu-wrap {
   max-width: 1200px;
   margin: 0 auto;
   padding: clamp(1rem, 3vw, 2rem) clamp(.75rem, 2.5vw, 1.25rem);
 }
 
-/* ------ Filters ------ */
-.edu .edu-filters{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap: clamp(.75rem, 3vw, 2.25rem);
-  flex-wrap: wrap;
-  margin: 0 auto clamp(1rem, 3vw, 1.5rem) auto;
-  width: 100%;
+/* ====================================== */
+/*            FILTER ROW (3 COL)          */
+/* ====================================== */
+
+.edu .edu-filter-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  align-items: center;
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  position: relative; /* needed for vertical separators */
+}
+
+.edu .edu-filter-row .col {
   text-align: center;
 }
-.edu .edu-filter-btn{
-  background:transparent; border:0; color:var(--muted);
-  font:inherit;
-  letter-spacing:.08em;
-  font-size: clamp(.95rem, 1.2vw, 1.15rem);
-  line-height:1.2;
-  padding:.35rem 0 .45rem;
-  cursor:pointer; position:relative; transition:color .2s ease;
-}
-.edu .edu-filter-btn:hover{ color:var(--ink); }
-.edu .edu-filter-btn::after{
-  content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px;
-  transform:scaleX(0); transform-origin:center;
-  background:var(--accent); box-shadow:0 0 18px var(--accent);
-  transition:transform .2s ease;
-}
-.edu .edu-filter-btn.is-active{ color:var(--accent); text-shadow:0 0 20px var(--accent); }
-.edu .edu-filter-btn.is-active::after{ transform:scaleX(1); }
 
-.education-line{
-  display:inline-block; width:1px; height:32px; background:#FBFFFF;
-  margin: 0 clamp(.75rem, 2.5vw, 1.25rem); opacity:.8; vertical-align:middle;
-}
-@media (max-width:560px){
-  .education-line{ height:22px; margin:0 .5rem; opacity:.6; }
+/* Vertical separator lines between filter columns */
+@media (min-width: 600px) {
+  .edu .edu-filter-row::before,
+  .edu .edu-filter-row::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 1px;
+    height: 32px;
+    background: #ffffff;
+    pointer-events: none;
+  }
+
+  /* line between column 1 and 2 */
+  .edu .edu-filter-row::before {
+    left: 33.333%;
+  }
+
+  /* line between column 2 and 3 */
+  .edu .edu-filter-row::after {
+    left: 66.666%;
+  }
 }
 
-/* ------ Grid (auto-fit prevents overlap) ------ */
+.edu .edu-filter-btn {
+  background: transparent;
+  border: transparent;
+  color: var(--accent-fltr-btn-inactive);
+  padding: 0.6rem 1.2rem;
+  border-radius: 2px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+.edu .edu-filter-btn:hover {
+  border-bottom: solid 1px #00ffff;
+}
+
+/* ACTIVE BUTTON = WHITE */
+.edu .edu-filter-btn.is-active {
+  background: transparent;
+  border-bottom: solid 1px #00ffff;
+  color: #00ffff;
+  text-decoration: line-through;
+}
+
+
+/* ====================================== */
+/*                GRID AREA               */
+/* ====================================== */
+
 .edu .edu-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);  /* 5 per row on laptops+ */
-  gap: clamp(8px, 1.5vw, 16px);
-  align-items: stretch;
-  justify-content: center;
-  padding-top: clamp(1rem, 3vw, 2rem);
-}
-/* Adjust columns per device size */
-@media (max-width: 1200px) {
-  .edu .edu-grid {
-    grid-template-columns: repeat(4, 1fr); /* 4 per row for large tablets */
-  }
-}
-@media (max-width: 980px) {
-  .edu .edu-grid {
-    grid-template-columns: repeat(4, 1fr); /* 3 per row for small laptops/tablets */
-  }
-}
-@media (max-width: 760px) {
-  .edu .edu-grid {
-    grid-template-columns: repeat(3, 1fr); /* 2 per row for phones/tablets */
-  }
-}
-@media (max-width: 480px) {
-  .edu .edu-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 per row for phones/tablets */
-  }
+
+  /* MANUAL CONTROL: change 5 to any number for items per row */
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  align-items: stretch; /* make cards equal height per row */
 }
 
-/* remove inherited article margin that causes gaps */
-.edu .edu-grid > article,
-.edu .edu-grid > .edu-item{ margin:0 !important; }
+/* ====================================== */
+/*              CERTIFICATE CARD          */
+/* ====================================== */
 
-/* neutralize previous fixed spans so cards flow responsively */
-.edu .tile{ grid-column: auto; }
-
-/* ------ Card ------ */
-.edu .edu-item{
-  background:var(--card-bg); border:1px solid var(--card-br); box-shadow:var(--shadow);
-  border-radius:10px; overflow:hidden; display:flex; flex-direction:column;
-  min-width:0;  /* prevents flex/grid overflow on long titles */
-}
-.edu .edu-item figure{ aspect-ratio: 1 / 1; overflow:hidden; }
-.edu .edu-item img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-.edu .edu-item .cap{
-  padding:.65rem .85rem;
-  border-top:1px solid #ffffff12;
-  display:flex; justify-content:space-between; align-items:flex-start; gap:.75rem;
-  flex-wrap: wrap;  /* allows tag to wrap under long titles on small screens */
+.edu .edu-item {
+  background: var(--card-bg);
+  border: 1px solid var(--card-br);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;              /* vertical layout: image + caption */
+  flex-direction: column;
+  box-shadow: var(--card-shadow);
+  min-width: 0;
+  height: 100%;               /* stretch to full grid cell height */
 }
 
-.edu .title{
-  color:var(--ink);
+/* ===== IMAGE WRAPPER ===== */
+
+.edu .edu-img {
+  aspect-ratio: 1 / 1;        /* change to 16/9 or 4/3 if you prefer */
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.edu .edu-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== CAPTION AREA (STACKED) ===== */
+
+.edu .edu-cap {
+  padding: 0.85rem 1rem;
+  border-top: 1px solid #ffffff18;
+  display: flex;
+  flex-direction: column;      /* title above, tag below */
+  flex: 1 1 auto;              /* fill remaining card height */
+}
+
+/* Title grows, tag is pinned at bottom */
+.edu .edu-title {
+  color: var(--ink);
   font-size: clamp(.9rem, 1vw, 1rem);
-  line-height:1.25;
-  overflow-wrap:anywhere;
-  flex: 1 1 auto;
+  line-height: 1.25;
+  flex: 1 1 auto;              /* take available vertical space */
+  overflow-wrap: anywhere;
+  margin-bottom: 0.75rem;
 }
 
-.edu .tag{
-  font-size: clamp(.62rem, .9vw, .72rem);
-  padding:.18rem .5rem; border:1px solid var(--accent);
-  color:var(--accent); border-radius:999px; text-transform:uppercase; letter-spacing:.06em;
+.edu .edu-tag {
+  align-self: flex-start;
+  font-size: clamp(.6rem, .9vw, .75rem);
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   white-space: nowrap;
+  margin-top: auto;            /* push to bottom of caption */
 }
-
-/* hidden state toggled by JS */
-.edu .is-hidden{ display:none !important; }
-
-/* a11y */
-.edu .edu-filter-btn:focus-visible{ outline:2px dashed var(--accent); outline-offset:6px; }
-
