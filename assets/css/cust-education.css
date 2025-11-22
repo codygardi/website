@@ -1,175 +1,113 @@
-/* ====================================== */
-/*             EDUCATION BASE             */
-/* ====================================== */
-
-.edu {
-  --accent: #00ffff;
-
-  --accent-fltr-btn-inactive: #f3f3f3;
-  --accent-fltr-btn-active: #00ffff;
-  --accent-fltr-btn-hover: #00ffff;
-  --accent-fltr-btn-hover: #00ffff;
-  --ink: #f3f3f3;
-  --muted: #b8c0c2;
-  --card-bg: #1a1c20;
-  --card-br: #aaaaaa8a;
-  --card-shadow: 0 0 10px -6px #FBFFFF;
-}
-
-/* Hidden state toggled by JS */
-.edu .is-hidden {
-  display: none !important;
-}
-
-.edu .edu-wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: clamp(1rem, 3vw, 2rem) clamp(.75rem, 2.5vw, 1.25rem);
-}
-
-/* ====================================== */
-/*            FILTER ROW (3 COL)          */
-/* ====================================== */
-
-.edu .edu-filter-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(0.75rem, 2vw, 1.5rem);
-  align-items: center;
-  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
-  position: relative; /* needed for vertical separators */
-}
-
-.edu .edu-filter-row .col {
-  text-align: center;
-}
-
-/* Vertical separator lines between filter columns */
-@media (min-width: 600px) {
-  .edu .edu-filter-row::before,
-  .edu .edu-filter-row::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 1px;
-    height: 32px;
-    background: #ffffff;
-    pointer-events: none;
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+.about-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 2em;
+  }
+  
+  .about-img-container {
+    flex: 1;
+    display: inline-block;
+    min-width: 150px;
+    max-width: 250px;
+    perspective: 1000px;
+    box-shadow: 0px 1px 5px 10px #1a1c20;
+    background-color: #1a1c20;
+    border-radius: 15px;
+    margin-right: 1em;
+    margin-left: 1em;
+    /* transform: rotate(-10deg); */
+    transition: all 0.5s ease; 
+  }
+  
+  .about-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 360em;
+    /* transform: rotate(-20deg); */
+    box-shadow: 0px 0px 10px 5px #f3f3f380;
+    margin-bottom: 0rem;
+    transition: all 0.5s ease; 
+  }
+  
+  .about-img:hover {
+    box-shadow: 0px 1px 20px 1px #f3f3f3;
   }
 
-  /* line between column 1 and 2 */
-  .edu .edu-filter-row::before {
-    left: 33.333%;
+  .about-img-container:hover {
+    /* border-radius: 15px; */
+  }
+  
+  .about-content {
+    flex: 2;
+    min-width: 280px;
+    padding: 0em 1.5em;
+    background: #1a1c20;
+    /* border: 1px solid #f3f3f3; */
+    /* box-shadow: 0px 1px 20px 1px #f3f3f3; */
+    /* border-bottom: 1px solid #aaaaaa8a; */
+    border-radius: 8px;
   }
 
-  /* line between column 2 and 3 */
-  .edu .edu-filter-row::after {
-    left: 66.666%;
+  .about-text {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    font-size: 0.95em;
+    color: #aaa;
+  }
+
+  .about-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .about-btn {
+    flex: 1;
+    color: #f3f3f3;
+    box-shadow: 0px 0px 5px #f3f3f3;
+    text-shadow: 0px 0px 10px #f3f3f3;
+    border: 1px solid #f3f3f3;
+    padding: 0.1em 0.1em;
+    font-weight: 900;
+    border-radius: 120px;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .about-btn:hover {
+    color: #00ffff;
+    box-shadow: 0px 0px 5px #00ffff;
+    text-shadow: 0px 0px 10px #00ffff;
+    border: 1px solid #00ffff;
+  }
+  
+/* Responsive: stack buttons vertically */
+@media (max-width: 768px) {
+  .about-buttons {
+    flex-direction: column;
+  }
+
+  .about-btn {
+    width: 100%;
   }
 }
 
-.edu .edu-filter-btn {
-  background: transparent;
-  border: transparent;
-  color: var(--accent-fltr-btn-inactive);
-  padding: 0.6rem 1.2rem;
-  border-radius: 2px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all .25s ease;
+@media (max-width: 768px) {
+  .about-buttons {
+    flex-direction: column;
+  }
+
+  .about-btn {
+    width: 100%;
+  }
 }
-
-.edu .edu-filter-btn:hover {
-  border-bottom: solid 1px #00ffff;
-}
-
-/* ACTIVE BUTTON = WHITE */
-.edu .edu-filter-btn.is-active {
-  background: transparent;
-  border-bottom: solid 1px #00ffff;
-  color: #00ffff;
-  text-decoration: line-through;
-}
-
-
-/* ====================================== */
-/*                GRID AREA               */
-/* ====================================== */
-
-.edu .edu-grid {
-  display: grid;
-
-  /* MANUAL CONTROL: change 5 to any number for items per row */
-  grid-template-columns: repeat(4, 1fr);
-
-  gap: clamp(0.75rem, 2vw, 1.5rem);
-  margin-bottom: clamp(2rem, 4vw, 3rem);
-  align-items: stretch; /* make cards equal height per row */
-}
-
-/* ====================================== */
-/*              CERTIFICATE CARD          */
-/* ====================================== */
-
-.edu .edu-item {
-  background: var(--card-bg);
-  border: 1px solid var(--card-br);
-  border-radius: 12px;
-  overflow: hidden;
-  display: flex;              /* vertical layout: image + caption */
-  flex-direction: column;
-  box-shadow: var(--card-shadow);
-  min-width: 0;
-  height: 100%;               /* stretch to full grid cell height */
-}
-
-/* ===== IMAGE WRAPPER ===== */
-
-.edu .edu-img {
-  aspect-ratio: 1 / 1;        /* change to 16/9 or 4/3 if you prefer */
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  flex: 0 0 auto;
-}
-
-.edu .edu-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* ===== CAPTION AREA (STACKED) ===== */
-
-.edu .edu-cap {
-  padding: 0.85rem 1rem;
-  border-top: 1px solid #ffffff18;
-  display: flex;
-  flex-direction: column;      /* title above, tag below */
-  flex: 1 1 auto;              /* fill remaining card height */
-}
-
-/* Title grows, tag is pinned at bottom */
-.edu .edu-title {
-  color: var(--ink);
-  font-size: clamp(.9rem, 1vw, 1rem);
-  line-height: 1.25;
-  flex: 1 1 auto;              /* take available vertical space */
-  overflow-wrap: anywhere;
-  margin-bottom: 0.75rem;
-}
-
-.edu .edu-tag {
-  align-self: flex-start;
-  font-size: clamp(.6rem, .9vw, .75rem);
-  padding: 0.2rem 0.6rem;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  border-radius: 999px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  white-space: nowrap;
-  margin-top: auto;            /* push to bottom of caption */
-}
+  
