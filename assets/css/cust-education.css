@@ -108,6 +108,26 @@
   align-items: stretch; /* make cards equal height per row */
 }
 
+  @media screen and (max-width: 1200px) {
+		.edu .edu-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  @media screen and (max-width: 980px) {
+    .edu .edu-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media screen and (max-width: 768px) {
+    .edu .edu-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media screen and (max-width: 480px) {
+    .edu .edu-grid { grid-template-columns: repeat(1, 1fr); }
+  }
+
+  @media screen and (max-width: 375px) {
+    .edu .edu-grid { grid-template-columns: repeat(1, 1fr); }
+  }
+
 /* ====================================== */
 /*              CERTIFICATE CARD          */
 /* ====================================== */
@@ -173,3 +193,4 @@
   white-space: nowrap;
   margin-top: auto;            /* push to bottom of caption */
 }
+
