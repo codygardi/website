@@ -1,95 +1,211 @@
-/* ===== SKILLS WHEEL ===== */
+/* ====================================== */
+/*             SKILLS BASE                */
+/* ====================================== */
 .skills {
-  --accent:#00ffff; --ink:#f3f3f3; --muted:#aeb4b7;
-  --bg:#1a1c20; --br:#FBFFFF;
-  --item-h:46px;   /* visible row height */
-  --gap:10px;      /* vertical gap between visible rows */
-  --rad:10px;
-}
-.skills .wrap { max-width:1200px; margin:0 auto; }
+  --accent: #00ffff;
+  --ink: #f3f3f3;
+  --muted: #aeb4b7;
+  --bg: #1a1c20;
+  --br: #FBFFFF;
 
-.skills .grid {
-  display:grid; gap:16px;
-  grid-template-columns:repeat(4, 1fr);
-  margin-top: 2em;
-}
-@media (max-width:980px){ .skills .grid{ grid-template-columns:repeat(2,1fr);} }
-@media (max-width:640px){ .skills .grid{ grid-template-columns:1fr;} }
+  --chip-bg: #121418;
+  --chip-br: #ffffff1a;
 
-.skills .col {
-  border:1px solid var(--br);
-  border-radius:var(--rad);
-  background:var(--bg);
-  box-shadow:0 0 10px -6px var(--br);
-  padding:16px;
+  --track-h: 52px;
+
+  /* UNIVERSAL spacing (item → item AND loop → loop) */
+  --gap: 1.3rem;
+
+  padding: 2.5rem 1rem;
 }
 
-.skills .title {
-  font-size:1.05rem; color:var(--ink);
-  margin-bottom:10px;
-  border-bottom:1px solid #ffffff1a;
-  padding-bottom:8px;
+.skills-inner {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* viewport shows only 3 items */
-.skills .wheel {
-  position:relative;
-  height:calc(var(--item-h)*3 + var(--gap)*2);
-  overflow:hidden;
+/* ====================================== */
+/*           FILTER CONTROLS              */
+/* ====================================== */
+.skills-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
 }
 
-/* items are absolutely positioned inside .wheel */
-.skills .item {
-  position:absolute; left:0; right:0;
-  height:var(--item-h); line-height:var(--item-h);
-  padding:0 12px;
-  border-radius:5px;
-  background:#121418;
-  color:var(--ink);
-  border:1px solid #ffffff1a;
-  transition:transform 600ms ease, opacity 600ms ease, box-shadow 600ms ease, border-color 600ms ease;
-  will-change:transform, opacity;
-}
-/* Keep each skill to a single line inside the fixed-height row */
-.skills .item{
-  white-space: nowrap;       /* no wrapping */
-  overflow: hidden;          /* hide excess text */
-  text-overflow: ellipsis;   /* show … when clipped */
-  max-width: 100%;
+.skills-filter {
+  padding: 0.4rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--chip-br);
+  background: #0d0f12;
+  color: var(--muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition:
+    color 200ms ease,
+    border-color 200ms ease,
+    background-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 120ms ease;
+  white-space: nowrap;
 }
 
-/* Optional: give mobile a bit more row height so ellipsis appears nicer */
-@media (max-width: 640px){
-  .skills { --item-h: 52px; }
+.skills-filter:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 12px -6px var(--accent);
+  color: var(--ink);
 }
 
-
-/* visual depths */
-.skills .pos-0 { 
-  top:0;
-  transform:scale(1.0);
-  opacity:1;
-  z-index:3;
-  border-color:var(--accent);
-  box-shadow:0 0 20px -6px var(--accent);
-}
-.skills .pos-1 { 
-  top:calc(var(--item-h) + var(--gap));
-  transform:scale(.80);
-  opacity:.72;
-  z-index:2;
-}
-.skills .pos-2 { 
-  top:calc(var(--item-h)*2 + var(--gap)*2);
-  transform:scale(.60);
-  opacity:.45;
-  z-index:1;
-}
-.skills .hid { 
-  opacity:0; 
-  pointer-events:none; 
-  transform:translateY(10px) scale(.85);
+.skills-filter.is-active {
+  background: var(--accent);
+  color: #020304;
+  border-color: var(--accent);
+  box-shadow: 0 0 18px -6px var(--accent);
+  transform: translateY(-1px);
 }
 
-/* Prevent FOUC before JS applies classes */
-.skills:not(.js-ready) .item { opacity:0; }
+/* ====================================== */
+/*          HORIZONTAL WHEEL              */
+/* ====================================== */
+.skills-wheel-wrapper {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: visible;
+  border-radius: 16px;
+  border: 1px solid var(--br);
+  background: radial-gradient(circle at top left,
+                               #232732 0,
+                               #101319 55%,
+                               #05070a 100%);
+  padding: 0.9rem 0;
+  min-height: calc(var(--track-h) + 1.8rem);
+  display: flex;
+  align-items: center;
+}
+
+/* ====================================== */
+/*     STRONG EDGE FADE-IN / FADE-OUT     */
+/* ====================================== */
+.skills-wheel-wrapper::before,
+.skills-wheel-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 140px;            /* wider fade zone for stronger effect */
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Left fade: solid → deep → transparent */
+.skills-wheel-wrapper::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    #05070a 0%,                  /* solid edge */
+    rgba(5, 7, 10, 0.95) 25%,    /* very strong */
+    rgba(5, 7, 10, 0.65) 55%,    /* still noticeable */
+    rgba(5, 7, 10, 0.0) 100%     /* fully clear into center */
+  );
+}
+
+/* Right fade: solid → deep → transparent */
+.skills-wheel-wrapper::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    #05070a 0%,                  /* solid edge */
+    rgba(5, 7, 10, 0.95) 25%,    /* very strong */
+    rgba(5, 7, 10, 0.65) 55%,    /* still noticeable */
+    rgba(5, 7, 10, 0.0) 100%     /* fully clear into center */
+  );
+}
+
+/* The moving track */
+.skills-track {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  transform: translateX(0);
+  opacity: 1;
+  padding-inline: 1.5rem;
+  transition: opacity 260ms ease;
+  will-change: transform, opacity;
+}
+
+/* One full copy of the current group */
+.skills-segment {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--gap);
+}
+
+/* Fade during filter-switch */
+.skills.skills--transitioning .skills-track {
+  opacity: 0;
+}
+
+/* ====================================== */
+/*           SLEEK SKILL CHIPS            */
+/* ====================================== */
+.skills-item {
+  flex: 0 0 auto;
+  height: var(--track-h);
+  line-height: var(--track-h);
+  padding: 0 1.25rem;
+  font-size: 0.9rem;
+  border-radius: 22px;
+
+  background: var(--chip-bg);
+  color: var(--ink);
+  border: 1px solid var(--chip-br);
+  box-shadow: 0 0 10px -6px #000000;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  min-width: 90px;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.skills-item:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 18px -8px var(--accent);
+}
+
+/* SPACER to match EXACT gap at the loop seam */
+.skills-spacer {
+  flex: 0 0 auto;
+  width: var(--gap);
+  height: var(--track-h);
+}
+
+/* ====================================== */
+/*            RESPONSIVE TWEAKS           */
+/* ====================================== */
+@media (max-width: 768px) {
+  .skills {
+    padding-inline: 0.75rem;
+  }
+  .skills-item {
+    font-size: 0.85rem;
+    min-width: 80px;
+    padding-inline: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-filters {
+    justify-content: flex-start;
+  }
+  .skills-item {
+    font-size: 0.8rem;
+    min-width: 72px;
+  }
+}
