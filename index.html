@@ -99,62 +99,33 @@
 								<p>Can't stop, won't stop learning</p>
 							</center>
 						</header>
-						<!-- ====================== SKILLS ====================== -->
-						<section class="skills" data-ignore-reduce="1" data-interval="3000" data-fade="600">
-							<div class="wrap">
-							<div class="grid">
+						<!-- ====================================== -->
+						<!--              SKILLS SECTION           -->
+						<!-- ====================================== -->
+						<section class="skills"
+								data-ignore-reduce="1"
+								data-base-speed="40"
+								data-fast-speed="260">
+						<div class="skills-inner">
 
-								<!-- Programming Languages -->
-								<div class="col" data-wheel>
-								<div class="title">LANGUAGES</div>
-								<div class="wheel" aria-live="polite">
-									<!-- Replace with your items (any count) -->
-									<div class="item">Python</div>
-									<div class="item">SQL</div>
-									<div class="item">CSS</div>
-									<div class="item">HTML</div>
-								</div>
-								</div>
-
-								<!-- Technical Skills -->
-								<div class="col" data-wheel>
-								<div class="title">TECHNICAL</div>
-								<div class="wheel" aria-live="polite">
-									<div class="item">Networking (VLANs, VPN)</div>
-									<div class="item">Azure (RBAC, KV, Backup)</div>
-									<div class="item">SIEM (Wazuh)</div>
-									<div class="item">Linux & Windows Admin</div>
-									<div class="item">Docker</div>
-									<div class="item">Git/GitHub</div>
-								</div>
-								</div>
-
-								<!-- Personal Attributes -->
-								<div class="col" data-wheel>
-								<div class="title">Personal Attributes</div>
-								<div class="wheel" aria-live="polite">
-									<div class="item">Analytical</div>
-									<div class="item">Detail-oriented</div>
-									<div class="item">Proactive</div>
-									<div class="item">Resilient</div>
-									<div class="item">Curious</div>
-								</div>
-								</div>
-
-								<!-- Interpersonal Skills -->
-								<div class="col" data-wheel>
-								<div class="title">Interpersonal Skills</div>
-								<div class="wheel" aria-live="polite">
-									<div class="item">Cross-team collaboration</div>
-									<div class="item">Stakeholder communication</div>
-									<div class="item">Customer empathy</div>
-									<div class="item">Mentorship</div>
-									<div class="item">Process leadership</div>
-								</div>
-								</div>
-
+							<!-- ====================================== -->
+							<!--           FILTER CONTROLS ROW          -->
+							<!-- ====================================== -->
+							<div class="skills-filters" aria-label="Skill categories">
+							<button class="skills-filter is-active" data-group="all" type="button">All</button>
+							<button class="skills-filter" data-group="languages" type="button">Languages</button>
+							<button class="skills-filter" data-group="technical" type="button">Technical</button>
+							<button class="skills-filter" data-group="personal" type="button">Personal Attributes</button>
+							<button class="skills-filter" data-group="interpersonal" type="button">Interpersonal Skills</button>
 							</div>
+
+							<!-- ====================================== -->
+							<!--            HORIZONTAL WHEEL ROW        -->
+							<!-- ====================================== -->
+							<div class="skills-wheel-wrapper" aria-live="polite">
+							<div class="skills-track"></div>
 							</div>
+						</div>
 						</section>
 						<header>
 							<center>
@@ -482,6 +453,7 @@
 			<script src="assets/js/main.js"></script>
 	</body>
 </html>
+
 
 
 
