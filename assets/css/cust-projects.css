@@ -95,3 +95,146 @@
   }
 }
 
+/* ====================================== */
+/*             PROJECTS BASE              */
+/* ====================================== */
+
+.projects {
+  --accent: #00ffff;
+  --ink: #f3f3f3;
+  --muted: #b8c0c2;
+  --card-bg: #1a1c20;
+  --card-br: #aaaaaa8a;
+  --card-shadow: 0 0 10px -6px #FBFFFF;
+}
+
+.projects .is-hidden {
+  display: none !important;
+}
+
+.projects .proj-wrap {
+  max-width: 900px; /* narrower than edu */
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+/* FILTER ROW — same 3-column system */
+.projects .proj-filter-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  align-items: center;
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  position: relative;
+}
+
+.projects .proj-filter-row .col {
+  text-align: center;
+}
+
+/* vertical separators */
+@media (min-width: 600px) {
+  .projects .proj-filter-row::before,
+  .projects .proj-filter-row::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 1px;
+    height: 32px;
+    background: #FBFFFFcc;
+    pointer-events: none;
+  }
+
+  .projects .proj-filter-row::before { left: 33.333%; }
+  .projects .proj-filter-row::after { left: 66.666%; }
+}
+
+/* filter buttons */
+.projects .proj-filter-btn {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+/* active = white */
+.projects .proj-filter-btn.is-active {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #000;
+  box-shadow: 0 0 12px #ffffffaa;
+}
+
+.projects .proj-filter-btn:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+/* ====================================== */
+/*               GRID (1 COLUMN)          */
+/* ====================================== */
+
+.projects .proj-grid {
+  display: grid;
+
+  /* ONE COLUMN LAYOUT */
+  grid-template-columns: 2fr;
+
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+/* ====================================== */
+/*                 CARD                    */
+/* ====================================== */
+
+.projects .proj-item {
+  background: var(--card-bg);
+  border: 1px solid var(--card-br);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--card-shadow);
+}
+
+.projects .proj-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.projects .proj-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.projects .proj-cap {
+  padding: 1rem;
+  border-top: 1px solid #ffffff18;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.projects .proj-title {
+  color: var(--ink);
+  font-size: 1.1rem;
+}
+
+.projects .proj-tag {
+  align-self: flex-start;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
