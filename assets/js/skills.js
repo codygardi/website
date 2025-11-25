@@ -1,80 +1,202 @@
-/* Skills Wheel — rotates each column every N seconds; shows max 3 items.
-   Respects prefers-reduced-motion unless data-ignore-reduce="1". */
+/* ====================================== */
+/*         SKILLS HORIZONTAL WHEEL        */
+/* ====================================== */
 (function(){
   'use strict';
 
+  /* ====================================== */
+  /*               DATA MODEL               */
+/* ====================================== */
+  const SKILL_GROUPS = {
+    all: [
+      // Languages
+      'Python', 'SQL', 'CSS', 'HTML',
+      // Technical
+      'Networking (VLANs, VPN)', 'Azure (RBAC, KV, Backup)', 'SIEM (Wazuh)',
+      'Linux & Windows Admin', 'Docker', 'Git/GitHub',
+      // Personal
+      'Analytical', 'Detail-oriented', 'Proactive', 'Resilient', 'Curious',
+      // Interpersonal
+      'Cross-team collaboration', 'Stakeholder communication',
+      'Customer empathy', 'Mentorship', 'Process leadership'
+    ],
+    languages: [
+      'Python', 'SQL', 'CSS', 'HTML'
+    ],
+    technical: [
+      'Networking (VLANs, VPN)',
+      'Azure (RBAC, KV, Backup)',
+      'SIEM (Wazuh)',
+      'Linux & Windows Admin',
+      'Docker',
+      'Git/GitHub'
+    ],
+    personal: [
+      'Analytical',
+      'Detail-oriented',
+      'Proactive',
+      'Resilient',
+      'Curious'
+    ],
+    interpersonal: [
+      'Cross-team collaboration',
+      'Stakeholder communication',
+      'Customer empathy',
+      'Mentorship',
+      'Process leadership'
+    ]
+  };
+
   const ready = (fn) =>
     (document.readyState === 'loading')
-      ? document.addEventListener('DOMContentLoaded', fn, { once:true })
+      ? document.addEventListener('DOMContentLoaded', fn, { once: true })
       : fn();
 
   ready(() => {
-    document.querySelectorAll('.skills').forEach(root => initRoot(root));
+    document.querySelectorAll('.skills').forEach(initSkillsSection);
   });
 
-  function initRoot(root){
-    // Per-section config (with safe parsing)
-    const ignoreReduce = isTrue(root.dataset.ignoreReduce);
-    const reduce      = (!ignoreReduce) &&
-                        window.matchMedia &&
-                        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* ====================================== */
+  /*           SECTION INITIALISATION       */
+/* ====================================== */
+  function initSkillsSection(root){
+    const track   = root.querySelector('.skills-track');
+    const buttons = Array.from(root.querySelectorAll('.skills-filter'));
+    const wrapper = root.querySelector('.skills-wheel-wrapper');
+    if (!track || !buttons.length || !wrapper) return;
 
-    const INTERVAL_MS = reduce ? 0 : toInt(root.dataset.interval, 4000);
-    const FADE_MS     = reduce ? 0 : toInt(root.dataset.fade, 600);
-    const VISIBLE     = 3;
+    const ignoreReduce    = root.dataset.ignoreReduce === '1';
+    const osPrefersReduce = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReduce   = !ignoreReduce && osPrefersReduce;
 
-    root.classList.add('js-ready');
+    const baseSpeed = prefersReduce ? 0 : toFloat(root.dataset.baseSpeed, 40);   // px/s
+    const fastSpeed = prefersReduce ? 0 : toFloat(root.dataset.fastSpeed, 260);  // px/s
 
-    const wheels = Array.from(root.querySelectorAll('[data-wheel] .wheel'));
-    if (!wheels.length) return;
+    const MAX_REPEATS = 8;
 
-    wheels.forEach(wheel => setupWheel(wheel, { INTERVAL_MS, FADE_MS, VISIBLE }));
-  }
+    let currentGroup = 'all';
+    let currentSpeed = baseSpeed;
+    let targetSpeed  = baseSpeed;
+    let offset       = 0;
+    let segmentWidth = 0;   // width of ONE segment
+    let lastTime     = null;
 
-  function setupWheel(wheel, cfg){
-    const { INTERVAL_MS, FADE_MS, VISIBLE } = cfg;
-    const items = Array.from(wheel.querySelectorAll('.item'));
-    if (!items.length) return;
+    setGroup(currentGroup);
 
-    let head = 0;   // index of the “newest” item at the top
-    layout();
+    // Filter buttons
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const group = btn.dataset.group;
+        if (!group || group === currentGroup) return;
 
-    // Rotate
-    if (INTERVAL_MS > 0) {
-      const timer = setInterval(tick, INTERVAL_MS);
+        buttons.forEach(b => b.classList.toggle('is-active', b === btn));
 
-      // Stop the timer if the element gets removed
-      const obs = new MutationObserver(() => {
-        if (!document.body.contains(wheel)) {
-          clearInterval(timer); obs.disconnect();
+        if (!prefersReduce) {
+          targetSpeed = fastSpeed;
         }
+        root.classList.add('skills--transitioning');
+
+        const SWITCH_DELAY = prefersReduce ? 0 : 260;
+        setTimeout(() => {
+          setGroup(group);
+          currentGroup = group;
+
+          root.classList.remove('skills--transitioning');
+          if (!prefersReduce) {
+            targetSpeed = baseSpeed;
+          }
+        }, SWITCH_DELAY);
       });
-      obs.observe(document.body, { childList:true, subtree:true });
+    });
+
+    // Start animation
+    if (!prefersReduce && baseSpeed > 0) {
+      requestAnimationFrame(tick);
+    } else {
+      track.style.transform = 'translateX(0px)';
     }
 
-    function tick(){ head = (head + 1) % items.length; layout(); }
+    window.addEventListener('resize', () => {
+      recalcSegmentWidth();
+    });
 
-    function layout(){
-      const n = items.length;
-      items.forEach((el, i) => {
-        const rel = (i - head + n) % n; // 0..n-1 from head downward
-        el.style.transition =
-          `transform ${FADE_MS}ms ease, opacity ${FADE_MS}ms ease,` +
-          ` box-shadow ${FADE_MS}ms ease, border-color ${FADE_MS}ms ease`;
-        el.className = el.className
-          .replace(/\bpos-0\b|\bpos-1\b|\bpos-2\b|\bhid\b/g, '') // strip old
-          .trim() + ' ' + classFor(rel, VISIBLE);
+    /* ====================================== */
+    /*            RENDERING / GROUPS          */
+/* ====================================== */
+    function setGroup(group){
+      const skills = SKILL_GROUPS[group] || [];
+      track.innerHTML = '';
+      if (!skills.length) return;
+
+      // Build a single segment
+      const segment = document.createElement('div');
+      segment.className = 'skills-segment';
+
+      skills.forEach(label => {
+        const chip = document.createElement('div');
+        chip.className = 'skills-item';
+        chip.textContent = label;
+        segment.appendChild(chip);
       });
+
+      // Add spacer so end and beginning don't visually merge
+      const spacer = document.createElement('div');
+      spacer.className = 'skills-spacer';
+      segment.appendChild(spacer);
+
+      // Append enough copies to cover at least ~2x viewport width
+      track.appendChild(segment);
+      let repeats = 1;
+      const minWidth = wrapper.clientWidth * 2;
+      while (repeats < MAX_REPEATS && track.scrollWidth < minWidth) {
+        track.appendChild(segment.cloneNode(true));
+        repeats++;
+      }
+
+      offset = 0;
+      track.style.transform = 'translateX(0px)';
+      recalcSegmentWidth();
+    }
+
+    function recalcSegmentWidth(){
+      const firstSeg = track.querySelector('.skills-segment');
+      segmentWidth = firstSeg ? firstSeg.offsetWidth : 0;
+    }
+
+    /* ====================================== */
+    /*              ANIMATION LOOP            */
+/* ====================================== */
+    function tick(timestamp){
+      if (lastTime == null) {
+        lastTime = timestamp;
+        requestAnimationFrame(tick);
+        return;
+      }
+      const dt = (timestamp - lastTime) / 1000;  // seconds
+      lastTime = timestamp;
+
+      // Ease towards target speed
+      currentSpeed += (targetSpeed - currentSpeed) * 0.12;
+
+      // Move left
+      offset -= currentSpeed * dt;
+
+      // Wrap by exactly one segment width for seamless loop
+      if (segmentWidth > 0 && offset <= -segmentWidth) {
+        offset += segmentWidth;
+      }
+
+      track.style.transform = `translateX(${offset}px)`;
+      requestAnimationFrame(tick);
     }
   }
 
-  // Helpers
-  function toInt(v, d){ const x = parseInt(v, 10); return Number.isFinite(x) ? x : d; }
-  function isTrue(v){ return v === '1' || v === 'true' || v === 'yes'; }
-  function classFor(rel, visible){
-    if (rel === 0) return 'pos-0';
-    if (rel === 1 && visible > 1) return 'pos-1';
-    if (rel === 2 && visible > 2) return 'pos-2';
-    return 'hid';
+  /* ====================================== */
+  /*                 HELPERS                */
+/* ====================================== */
+  function toFloat(v, d){
+    const x = parseFloat(v);
+    return Number.isFinite(x) ? x : d;
   }
 })();
