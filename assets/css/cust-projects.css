@@ -212,7 +212,7 @@
 .projects .proj-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .projects .proj-cap {
@@ -238,3 +238,4 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
+
