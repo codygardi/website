@@ -1,0 +1,426 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+
+@property --color-bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f4f1eb;
+}
+
+@property --color-bg-alt {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ede7dd;
+}
+
+@property --color-surface {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #fbf8f2;
+}
+
+@property --color-surface-strong {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ffffff;
+}
+
+@property --color-text {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #1b2327;
+}
+
+@property --color-muted {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #536067;
+}
+
+@property --color-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #2d6674;
+}
+
+@property --color-accent-strong {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #214d57;
+}
+
+@property --color-accent-soft {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(45, 102, 116, 0.1);
+}
+
+@property --color-border {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(55, 79, 87, 0.2);
+}
+
+@property --color-link {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #1b2327;
+}
+
+@property --color-on-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f7fbfc;
+}
+
+@property --border-subtle {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(55, 79, 87, 0.14);
+}
+
+@property --surface-glass {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(255, 255, 255, 0.72);
+}
+
+:root {
+  --font-body: "Poppins", sans-serif;
+  --font-display: "DM Serif Display", serif;
+  --font-size-body: 1rem;
+  --line-body: 1.72;
+  --line-copy: 1.84;
+  --ui-duration-fast: 0.18s;
+  --ui-duration-base: 0.26s;
+  --ui-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --radius-sm: 0.9rem;
+  --radius-md: 1.2rem;
+  --radius-lg: 1.6rem;
+  --bg-primary: #f4f1eb;
+  --bg-secondary: #ede7dd;
+  --bg-surface: #fbf8f2;
+  --surface: #fbf8f2;
+  --card-bg: #ffffff;
+  --text-primary: #1b2327;
+  --text-secondary: #536067;
+  --border-color: rgba(55, 79, 87, 0.2);
+  --border-color-subtle: rgba(55, 79, 87, 0.14);
+  --accent: #2d6674;
+  --accent-strong: #214d57;
+  --accent-soft: rgba(45, 102, 116, 0.1);
+  --on-accent: #f7fbfc;
+  --link-color: #1b2327;
+  --glass-surface: rgba(255, 255, 255, 0.72);
+  --bg-light-start: #f4f1eb;
+  --bg-light-end: #ede7dd;
+  --bg-light-glow: rgba(45, 102, 116, 0.08);
+  --bg-dark-start: #0e171c;
+  --bg-dark-end: #122028;
+  --bg-dark-glow: rgba(126, 174, 186, 0.09);
+  --shadow-color: rgba(24, 37, 43, 0.14);
+  --theme-light-layer-opacity: 1;
+  --theme-dark-layer-opacity: 0;
+  --theme-light-scale: 1;
+  --theme-dark-scale: 1.012;
+  --theme-light-filter: saturate(1) brightness(1);
+  --theme-dark-filter: saturate(0.98) brightness(0.96);
+  --shadow-soft: 0 18px 42px color-mix(in srgb, var(--shadow-color) 56%, transparent);
+  --shadow-strong: 0 26px 64px color-mix(in srgb, var(--shadow-color) 86%, transparent);
+  --theme-track-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  --theme-thumb-shadow: 0 6px 18px rgba(33, 77, 87, 0.2);
+  --button-shadow: 0 12px 24px rgba(33, 77, 87, 0.14);
+  --panel-inset-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  --theme-shutter-light-backdrop: rgba(148, 119, 95, 0.58);
+  --theme-shutter-light-panel: #94775f;
+  --theme-shutter-light-panel-shadow: transparent;
+  --theme-shutter-dark-backdrop: rgba(148, 119, 95, 0.58);
+  --theme-shutter-dark-panel: #94775f;
+  --theme-shutter-dark-panel-shadow: transparent;
+  --nav-phase-duration: 280ms;
+  --nav-phase-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --color-bg: var(--bg-primary);
+  --color-bg-alt: var(--bg-secondary);
+  --color-surface: var(--bg-surface);
+  --color-surface-strong: var(--card-bg);
+  --color-text: var(--text-primary);
+  --color-muted: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-border: var(--border-color);
+  --color-link: var(--link-color);
+  --color-on-accent: var(--on-accent);
+  --border-subtle: var(--border-color-subtle);
+  --surface-glass: var(--glass-surface);
+  --section-padding: clamp(4.75rem, 7vw, 6.25rem) 0;
+  --section-padding-mobile: 3.75rem 0;
+  --shell-padding: clamp(1.6rem, 3vw, 2.5rem);
+  --shell-padding-mobile: 1.35rem;
+  --section-intro-gap: clamp(1.35rem, 2vw, 2rem);
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg-primary: #0e171c;
+  --bg-secondary: #122028;
+  --bg-surface: #132127;
+  --surface: #132127;
+  --card-bg: #182930;
+  --text-primary: #edf3f4;
+  --text-secondary: #aebfc3;
+  --border-color: rgba(146, 182, 191, 0.24);
+  --border-color-subtle: rgba(146, 182, 191, 0.16);
+  --accent: #7eaeba;
+  --accent-strong: #a8cbd3;
+  --accent-soft: rgba(126, 174, 186, 0.12);
+  --on-accent: #0f1a1e;
+  --link-color: #edf3f4;
+  --glass-surface: rgba(16, 26, 32, 0.72);
+  --shadow-color: rgba(0, 0, 0, 0.32);
+  --theme-light-layer-opacity: 0;
+  --theme-dark-layer-opacity: 1;
+  --theme-light-scale: 1.006;
+  --theme-dark-scale: 1;
+  --theme-light-filter: saturate(1.02) brightness(1.02);
+  --theme-dark-filter: saturate(1) brightness(1);
+  --theme-thumb-shadow: 0 6px 18px rgba(8, 15, 20, 0.28);
+  --button-shadow: 0 12px 24px rgba(8, 15, 20, 0.18);
+  color-scheme: dark;
+}
+
+html {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: 400;
+  line-height: var(--line-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[data-page-transition]:not(.theme-shutter) {
+  display: none;
+}
+
+.nav-phase-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  background: var(--color-bg);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--nav-phase-duration) var(--nav-phase-ease),
+    visibility 0s linear var(--nav-phase-duration);
+  will-change: opacity;
+}
+
+.nav-phase-transition.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+.theme-shutter {
+  --theme-shutter-backdrop-fill: var(--theme-shutter-light-backdrop);
+  --theme-shutter-panel-fill: var(--theme-shutter-light-panel);
+  --theme-shutter-panel-shadow: var(--theme-shutter-light-panel-shadow);
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+  isolation: isolate;
+  contain: layout paint style;
+  touch-action: none;
+}
+
+.theme-shutter.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.theme-shutter[data-transition-theme="light"] {
+  --theme-shutter-backdrop-fill: var(--theme-shutter-light-backdrop);
+  --theme-shutter-panel-fill: var(--theme-shutter-light-panel);
+  --theme-shutter-panel-shadow: var(--theme-shutter-light-panel-shadow);
+}
+
+.theme-shutter[data-transition-theme="dark"] {
+  --theme-shutter-backdrop-fill: var(--theme-shutter-dark-backdrop);
+  --theme-shutter-panel-fill: var(--theme-shutter-dark-panel);
+  --theme-shutter-panel-shadow: var(--theme-shutter-dark-panel-shadow);
+}
+
+:root[data-theme="dark"] .theme-shutter:not([data-transition-theme]) {
+  --theme-shutter-backdrop-fill: var(--theme-shutter-dark-backdrop);
+  --theme-shutter-panel-fill: var(--theme-shutter-dark-panel);
+  --theme-shutter-panel-shadow: var(--theme-shutter-dark-panel-shadow);
+}
+
+.theme-shutter__backdrop,
+.theme-shutter__column,
+.theme-shutter__panel {
+  position: absolute;
+}
+
+.theme-shutter__backdrop {
+  inset: 0;
+  opacity: 0;
+  background: var(--theme-shutter-backdrop-fill);
+  transition: opacity 600ms cubic-bezier(0.32, 0, 0.08, 1);
+  will-change: opacity;
+}
+
+.theme-shutter__column {
+  top: 0;
+  bottom: 0;
+  left: calc(var(--theme-shutter-column-index, 0) * (100% / var(--theme-shutter-column-count, 5)));
+  width: calc(100% / var(--theme-shutter-column-count, 5));
+  overflow: hidden;
+}
+
+.theme-shutter__panel {
+  left: -1px;
+  right: -1px;
+  height: calc(50% + 1px);
+  background: var(--theme-shutter-panel-fill);
+  box-shadow: none;
+  transition:
+    transform var(--theme-shutter-panel-duration, 1240ms) cubic-bezier(0.76, 0, 0.24, 1);
+  transition-delay: calc(var(--theme-shutter-column-index, 0) * var(--theme-shutter-stagger, 140ms));
+  will-change: transform;
+}
+
+.theme-shutter__panel--top {
+  top: 0;
+  transform: translate3d(0, -102%, 0);
+}
+
+.theme-shutter__panel--bottom {
+  bottom: 0;
+  transform: translate3d(0, 102%, 0);
+}
+
+.theme-shutter.is-covering .theme-shutter__backdrop,
+.theme-shutter.is-covered .theme-shutter__backdrop {
+  opacity: 1;
+}
+
+.theme-shutter.is-covering .theme-shutter__panel,
+.theme-shutter.is-covered .theme-shutter__panel {
+  transform: translate3d(0, 0, 0);
+}
+
+.theme-shutter.is-revealing .theme-shutter__backdrop {
+  opacity: 0;
+  transition-duration: 720ms;
+}
+
+a,
+button,
+input,
+textarea {
+  outline: none;
+  box-shadow: none;
+  text-decoration: none;
+  transition:
+    color var(--ui-duration-base) var(--ui-ease),
+    background-color var(--ui-duration-base) var(--ui-ease),
+    border-color var(--ui-duration-base) var(--ui-ease),
+    box-shadow var(--ui-duration-base) var(--ui-ease),
+    transform var(--ui-duration-base) var(--ui-ease),
+    opacity var(--ui-duration-base) var(--ui-ease);
+}
+
+a {
+  color: var(--color-link);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+::selection,
+::-moz-selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  text-shadow: none;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}
+
+figure {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+input,
+textarea {
+  border-radius: 0;
+  resize: none;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --font-size-body: 0.95rem;
+    --line-body: 1.66;
+    --line-copy: 1.76;
+  }
+}
