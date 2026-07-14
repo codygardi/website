@@ -10,5 +10,11 @@
   },
   "compatibility_flags": [
     "nodejs_compat"
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "RSVPS",
+      "id": "01e01c2622e643e3a8d8e06fd0095524"
+    }
   ]
 }
