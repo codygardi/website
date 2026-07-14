@@ -7,27 +7,13 @@
       name="description"
       content="Shared RSVP page for Robbie Merchant's January 2027 bachelor party in Grass Valley, California."
     >
-    <script>
-      (() => {
-        const storageKey = "theme-preference";
-        const root = document.documentElement;
-        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-
-        try {
-          const storedTheme = window.localStorage.getItem(storageKey);
-          root.dataset.theme = storedTheme === "light" || storedTheme === "dark" ? storedTheme : systemTheme;
-        } catch (error) {
-          root.dataset.theme = systemTheme;
-        }
-      })();
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     >
-    <link rel="stylesheet" href="celebrate.css">
+    <link rel="stylesheet" href="celebrate.css?v=20260714d">
     <title>Robbie's Bachelor Party RSVP</title>
   </head>
   <body>
@@ -143,6 +129,6 @@
       </form>
     </footer>
 
-    <script src="celebrate.js"></script>
+    <script src="celebrate.js?v=20260714d"></script>
   </body>
 </html>
