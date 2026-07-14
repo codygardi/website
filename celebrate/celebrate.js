@@ -4,7 +4,7 @@ const invitees = [
   { id: "max-voorhees", name: "Max Voorhees", phone: "5302103099" },
   { id: "thomas-correll", name: "Thomas Correll", phone: "5302637719" },
   { id: "jonno-christie", name: "Jonno Christie", phone: "8053414024" },
-  { id: "lane-carleson", name: "Lane Carleson", phone: "5309136251" },
+  { id: "lane-carleson", name: "Lane Carlson", phone: "5309136251" },
   { id: "sean-fitzhenry", name: "Sean Fitzhenry", phone: "5305598103" },
   { id: "andrew-kostolefsky", name: "Andrew Kostolefsky", phone: "5305595048" },
   { id: "cody-gardi", name: "Cody Gardi", phone: "9253938441" },
