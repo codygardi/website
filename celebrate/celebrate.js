@@ -1,4 +1,15 @@
 const STORAGE_KEY = "robbie-bachelor-rsvp-responses-v1";
+const defaultPersistenceConfig = {
+  csvUrl: "",
+  endpointUrl: "/api/rsvps",
+};
+const persistenceConfig = {
+  ...defaultPersistenceConfig,
+  ...(window.CELEBRATE_RSVP_CONFIG || {}),
+};
+const csvStoreUrl = String(persistenceConfig.csvUrl || "").trim();
+const remoteStoreUrl = String(persistenceConfig.endpointUrl || "").trim();
+const sharedRefreshIntervalMs = 60000;
 
 const invitees = [
   { id: "max-voorhees", name: "Max Voorhees", phone: "5302103099" },
@@ -100,6 +111,8 @@ const elements = {
 };
 
 let responses = {};
+let sharedRefreshTimer = 0;
+let isRefreshingSharedResponses = false;
 
 function formatPhone(phone) {
   const digits = phone.replace(/\D/g, "");
@@ -132,18 +145,344 @@ function normalizeStatus(status) {
   return status === legacyNoStatus ? noStatus : "";
 }
 
-function loadResponses() {
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let field = "";
+  let inQuotes = false;
+
+  for (let index = 0; index < text.length; index += 1) {
+    const char = text[index];
+
+    if (char === '"') {
+      if (inQuotes && text[index + 1] === '"') {
+        field += '"';
+        index += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
+    }
+
+    if (char === "," && !inQuotes) {
+      row.push(field);
+      field = "";
+      continue;
+    }
+
+    if ((char === "\n" || char === "\r") && !inQuotes) {
+      if (char === "\r" && text[index + 1] === "\n") {
+        index += 1;
+      }
+      row.push(field);
+      if (row.some((value) => value.trim())) {
+        rows.push(row);
+      }
+      row = [];
+      field = "";
+      continue;
+    }
+
+    field += char;
+  }
+
+  row.push(field);
+  if (row.some((value) => value.trim())) {
+    rows.push(row);
+  }
+
+  return rows;
+}
+
+function parseAvailabilityValue(value) {
+  if (Array.isArray(value)) {
+    return normalizeAvailability(value.map(String).map((item) => item.trim()).filter(Boolean));
+  }
+
+  return normalizeAvailability(
+    String(value || "")
+      .split("|")
+      .map((item) => item.trim())
+      .filter(Boolean),
+  );
+}
+
+function normalizeStoredResponse(record) {
+  const invitee = getInviteeById(record.inviteeId);
+  const status = normalizeStatus(record.status);
+  const availability = parseAvailabilityValue(record.availability);
+
+  if (!invitee || !status || !availability.length) {
+    return null;
+  }
+
+  const submittedAt = record.submittedAt || record.updatedAt || new Date().toISOString();
+  const updatedAt = record.updatedAt || submittedAt;
+
+  return {
+    inviteeId: invitee.id,
+    name: invitee.name,
+    phone: invitee.phone,
+    status,
+    availability,
+    notes: record.notes || "",
+    submittedAt,
+    updatedAt,
+  };
+}
+
+function createResponseCollection(records) {
+  return records.reduce((collection, record) => {
+    const response = normalizeStoredResponse(record);
+    if (response) {
+      collection[response.inviteeId] = response;
+    }
+    return collection;
+  }, {});
+}
+
+function responsesFromCsv(text) {
+  const rows = parseCsv(text);
+
+  if (rows.length < 2) {
+    return {};
+  }
+
+  const headers = rows[0].map((header) => header.trim());
+  const records = rows.slice(1).map((row) =>
+    headers.reduce((record, header, index) => {
+      record[header] = row[index] || "";
+      return record;
+    }, {}),
+  );
+
+  return createResponseCollection(records);
+}
+
+function responsesFromPayload(payload) {
+  if (Array.isArray(payload)) {
+    return createResponseCollection(payload);
+  }
+
+  if (Array.isArray(payload?.responses)) {
+    return createResponseCollection(payload.responses);
+  }
+
+  return {};
+}
+
+function getTimestamp(response) {
+  return Date.parse(response.updatedAt || response.submittedAt || "") || 0;
+}
+
+function mergeResponses(nextResponses) {
+  Object.values(nextResponses).forEach((nextResponse) => {
+    const existingResponse = responses[nextResponse.inviteeId];
+
+    if (!existingResponse || getTimestamp(nextResponse) >= getTimestamp(existingResponse)) {
+      responses[nextResponse.inviteeId] = nextResponse;
+    }
+  });
+}
+
+function readLocalResponses() {
   try {
     const saved = window.localStorage.getItem(STORAGE_KEY);
-    responses = saved ? JSON.parse(saved) : {};
+    const parsed = saved ? JSON.parse(saved) : {};
+    return createResponseCollection(Object.values(parsed));
   } catch (error) {
-    responses = {};
-    setStatus("Saved RSVPs could not be loaded in this browser.", "error");
+    return {};
   }
 }
 
-function saveResponses() {
+function saveLocalResponses() {
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(responses));
+}
+
+function buildRemoteUrl(action) {
+  const url = new URL(remoteStoreUrl, window.location.href);
+  url.searchParams.set("action", action);
+  url.searchParams.set("cache", Date.now().toString());
+  return url.toString();
+}
+
+function responseToRemoteRecord(response) {
+  return {
+    ...response,
+    availability: response.availability.join("|"),
+  };
+}
+
+async function readTextResponse(response) {
+  const text = await response.text();
+  const trimmedText = text.trim();
+
+  if (!trimmedText) {
+    return {};
+  }
+
+  if (trimmedText.startsWith("{") || trimmedText.startsWith("[")) {
+    return responsesFromPayload(JSON.parse(trimmedText));
+  }
+
+  return responsesFromCsv(text);
+}
+
+async function fetchCsvResponses() {
+  if (!csvStoreUrl) {
+    return {};
+  }
+
+  const url = new URL(csvStoreUrl, window.location.href);
+  url.searchParams.set("cache", Date.now().toString());
+  const response = await fetch(url.toString(), { cache: "no-store" });
+
+  if (!response.ok) {
+    return {};
+  }
+
+  return responsesFromCsv(await response.text());
+}
+
+async function fetchRemoteResponses() {
+  if (!remoteStoreUrl) {
+    return {};
+  }
+
+  const response = await fetch(buildRemoteUrl("list"), { cache: "no-store" });
+
+  if (!response.ok) {
+    throw new Error("Shared RSVP log could not be loaded.");
+  }
+
+  return readTextResponse(response);
+}
+
+async function refreshSharedResponses() {
+  if (isRefreshingSharedResponses) {
+    return;
+  }
+
+  isRefreshingSharedResponses = true;
+
+  try {
+    mergeResponses(await fetchCsvResponses());
+  } catch (error) {
+    // The static CSV is only a shared seed; local saves can still render the page.
+  }
+
+  try {
+    if (remoteStoreUrl) {
+      mergeResponses(await fetchRemoteResponses());
+    }
+
+    saveLocalResponses();
+  } finally {
+    isRefreshingSharedResponses = false;
+  }
+}
+
+async function loadResponses() {
+  responses = readLocalResponses();
+
+  try {
+    await refreshSharedResponses();
+  } catch (error) {
+    setStatus("Shared RSVPs could not be loaded. Showing saved browser entries for now.", "error");
+  }
+}
+
+async function writeRemoteResponse(response) {
+  if (!remoteStoreUrl) {
+    return;
+  }
+
+  const saveResponse = await fetch(remoteStoreUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8",
+    },
+    body: JSON.stringify({
+      action: "upsert",
+      response: responseToRemoteRecord(response),
+    }),
+  });
+
+  if (!saveResponse.ok) {
+    throw new Error("Shared RSVP log could not be updated.");
+  }
+}
+
+async function persistResponse(response) {
+  responses[response.inviteeId] = response;
+  saveLocalResponses();
+
+  await writeRemoteResponse(response);
+
+  if (remoteStoreUrl) {
+    await refreshSharedResponses();
+  }
+}
+
+async function clearRemoteResponses(password) {
+  if (!remoteStoreUrl) {
+    return;
+  }
+
+  const clearResponse = await fetch(remoteStoreUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8",
+    },
+    body: JSON.stringify({
+      action: "clear",
+      password,
+    }),
+  });
+
+  if (!clearResponse.ok) {
+    throw new Error("Shared RSVPs could not be cleared.");
+  }
+}
+
+async function syncVisibleSharedResponses({ showError = false } = {}) {
+  if (!remoteStoreUrl) {
+    return;
+  }
+
+  try {
+    await refreshSharedResponses();
+
+    if (!elements.detailsPage.hidden) {
+      renderDetailsPage();
+    }
+
+    if (!elements.rsvpPage.hidden) {
+      updateInviteeState();
+    }
+  } catch (error) {
+    if (showError) {
+      setStatus("Shared RSVPs could not be refreshed. Showing saved browser entries for now.", "error");
+    }
+  }
+}
+
+function startSharedPolling() {
+  if (!remoteStoreUrl || sharedRefreshTimer) {
+    return;
+  }
+
+  sharedRefreshTimer = window.setInterval(() => {
+    if (!document.hidden) {
+      syncVisibleSharedResponses();
+    }
+  }, sharedRefreshIntervalMs);
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+      syncVisibleSharedResponses();
+    }
+  });
 }
 
 function setResetMessage(message, type = "neutral") {
@@ -317,7 +656,15 @@ function showRsvpPage({ updateHash = true } = {}) {
   window.scrollTo({ top: 0, left: 0, behavior: "auto" });
 }
 
-function showDetailsPage({ updateHash = true } = {}) {
+async function showDetailsPage({ updateHash = true, refresh = true } = {}) {
+  if (refresh) {
+    try {
+      await refreshSharedResponses();
+    } catch (error) {
+      setStatus("Shared RSVPs could not be refreshed. Showing saved browser entries for now.", "error");
+    }
+  }
+
   renderDetailsPage();
   elements.rsvpPage.hidden = true;
   elements.detailsPage.hidden = false;
@@ -329,7 +676,7 @@ function showDetailsPage({ updateHash = true } = {}) {
   window.scrollTo({ top: 0, left: 0, behavior: "auto" });
 }
 
-function handleSubmit(event) {
+async function handleSubmit(event) {
   event.preventDefault();
 
   const invitee = getInviteeById(elements.inviteeSelect.value);
@@ -367,19 +714,19 @@ function handleSubmit(event) {
     updatedAt: now,
   };
 
+  elements.submitRsvp.disabled = true;
+  elements.submitRsvp.textContent = remoteStoreUrl ? "Saving Shared RSVP..." : "Saving RSVP...";
+
   try {
-    responses[invitee.id] = response;
-    saveResponses();
+    await persistResponse(response);
     setStatus("", "loading");
     elements.submitRsvp.textContent = "Update RSVP";
-    showDetailsPage();
+    await showDetailsPage({ refresh: false });
   } catch (error) {
-    if (existingResponse) {
-      responses[invitee.id] = existingResponse;
-    } else {
-      delete responses[invitee.id];
-    }
-    setStatus("This browser could not save the RSVP. Please try again.", "error");
+    elements.submitRsvp.textContent = "Update RSVP";
+    setStatus("Saved on this device, but the shared RSVP log could not be updated. Please try again.", "error");
+  } finally {
+    elements.submitRsvp.disabled = false;
   }
 }
 
@@ -519,16 +866,22 @@ function renderDetailsPage() {
   renderOverlapTracker();
 }
 
-function handleResetForm(event) {
+async function handleResetForm(event) {
   event.preventDefault();
 
-  if (elements.resetPassword.value.trim() !== resetPassword) {
+  const password = elements.resetPassword.value.trim();
+
+  if (password !== resetPassword) {
     setResetMessage("Wrong password.", "error");
     elements.resetPassword.select();
     return;
   }
 
+  const button = elements.resetForm.querySelector("button");
+  button.disabled = true;
+
   try {
+    await clearRemoteResponses(password);
     responses = {};
     window.localStorage.removeItem(STORAGE_KEY);
     elements.resetPassword.value = "";
@@ -537,13 +890,15 @@ function handleResetForm(event) {
     setResetMessage("RSVPs cleared.", "success");
   } catch (error) {
     setResetMessage("Could not clear RSVPs.", "error");
+  } finally {
+    button.disabled = false;
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   renderInviteeOptions();
   renderChoices();
-  loadResponses();
+  await loadResponses();
   setStatus("", "loading");
   updateInviteeState();
 
@@ -556,6 +911,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showRsvpPage();
     updateInviteeState();
   });
+  startSharedPolling();
 
   if (window.location.hash === "#quest-details") {
     showDetailsPage({ updateHash: false });

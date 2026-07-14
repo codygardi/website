@@ -1,0 +1,7 @@
+name = "celebrate-rsvp"
+main = "cloudflare-worker.js"
+compatibility_date = "2026-07-14"
+
+kv_namespaces = [
+  { binding = "RSVPS", id = "replace-with-your-kv-namespace-id" }
+]
